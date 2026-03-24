@@ -7,86 +7,57 @@
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --bg:#070a0d;--surface:#0c1117;--panel:#101820;--card:#141e28;
-  --border:#1a2840;--b2:#243448;
-  --accent:#00ffe1;--accent2:#ff6b35;--gold:#ffd700;--purple:#bd93f9;
-  --green:#39d353;--red:#ff4757;--blue:#58a6ff;
-  --text:#c9d1d9;--dim:#4a5568;--dim2:#6b7280;
-  --header-h:54px;--bottom-h:64px;
-}
+:root{--bg:#070a0d;--surface:#0c1117;--panel:#101820;--card:#141e28;--border:#1a2840;--b2:#243448;--accent:#00ffe1;--accent2:#ff6b35;--gold:#ffd700;--purple:#bd93f9;--green:#39d353;--red:#ff4757;--blue:#58a6ff;--text:#c9d1d9;--dim:#4a5568;--dim2:#6b7280;--header-h:54px;--bottom-h:64px;}
 html,body{height:100%;overflow-x:hidden}
 body{background:var(--bg);font-family:'Rajdhani',sans-serif;color:var(--text)}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,225,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,225,.018) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
-
-/* ─── HEADER ─── */
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(0,255,225,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(0,255,225,.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0}
 .app-header{position:fixed;top:0;left:0;right:0;z-index:100;height:var(--header-h);background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 12px;gap:10px}
-.hlogo{font-family:'Share Tech Mono',monospace;color:var(--accent);font-size:16px;letter-spacing:2px;text-shadow:0 0 12px rgba(0,255,225,.4);white-space:nowrap;cursor:pointer;flex-shrink:0}
+.hlogo{font-family:'Share Tech Mono',monospace;color:var(--accent);font-size:16px;letter-spacing:2px;text-shadow:0 0 12px rgba(0,255,225,.4);cursor:pointer;flex-shrink:0}
 .hver{font-size:8px;color:var(--accent2);border:1px solid var(--accent2);padding:1px 5px;border-radius:8px;margin-left:4px}
 .hspacer{flex:1}
-.btn-customize{padding:6px 10px;background:rgba(255,107,53,.1);border:1px solid var(--accent2);color:var(--accent2);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.hbtn{padding:6px 10px;background:rgba(255,107,53,.1);border:1px solid var(--accent2);color:var(--accent2);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:3px;white-space:nowrap;flex-shrink:0}
+.hbtn.blue{background:rgba(88,166,255,.1);border-color:var(--blue);color:var(--blue)}
 .btn-hamburger{display:none;flex-direction:column;gap:4px;cursor:pointer;padding:6px;flex-shrink:0}
 .btn-hamburger span{display:block;width:20px;height:2px;background:var(--text);border-radius:2px;transition:.2s}
 .btn-hamburger.open span:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .btn-hamburger.open span:nth-child(2){opacity:0}
 .btn-hamburger.open span:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-
-/* ─── NAV ─── */
 #nav-wrap{position:fixed;top:var(--header-h);left:0;right:0;z-index:99;background:var(--surface);border-bottom:1px solid var(--border)}
-.hnav{display:flex;gap:0;overflow-x:auto;scrollbar-width:none;padding:0 4px}
+.hnav{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 4px}
 .hnav::-webkit-scrollbar{display:none}
 .ntab{flex-shrink:0;padding:8px 10px;background:transparent;border:none;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:.5px;color:var(--dim2);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:.15s}
 .ntab:hover{color:var(--text)}
 .ntab.act{color:var(--accent);border-bottom-color:var(--accent)}
-
-/* mobile: collapsible nav */
-@media(min-width:601px){.dev-credit{display:block !important}}
 @media(max-width:600px){
   .btn-hamburger{display:flex}
   #nav-wrap{display:none}
   #nav-wrap.open{display:block}
   .hnav{flex-direction:column;padding:4px 0}
-  .ntab{padding:12px 16px;border-bottom:1px solid var(--border);font-size:11px;letter-spacing:1px;text-align:left;width:100%}
+  .ntab{padding:12px 16px;border-bottom:1px solid var(--border);font-size:11px;text-align:left;width:100%}
   .ntab.act{border-bottom:1px solid var(--border);background:rgba(0,255,225,.05);color:var(--accent)}
   .ntab:last-child{border-bottom:none}
   .app-header{padding:0 10px}
   .hlogo{font-size:14px}
 }
-
-/* ─── CONTENT ─── */
-#content{padding-top:calc(var(--header-h) + 38px);padding-bottom:calc(var(--bottom-h) + 16px);padding-left:12px;padding-right:12px;max-width:1200px;margin:0 auto;position:relative;z-index:1}
-@media(max-width:600px){
-  #content{padding-top:calc(var(--header-h) + 8px)}
-  #content.nav-open{padding-top:calc(var(--header-h) + 8px)}
-}
-
-/* ─── GRID ─── */
-.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:768px){.grid2{grid-template-columns:1fr}}
-
-/* ─── CARDS ─── */
+#content{padding-top:calc(var(--header-h) + 42px);padding-bottom:calc(var(--bottom-h) + 16px);padding-left:12px;padding-right:12px;max-width:1100px;margin:0 auto;position:relative;z-index:1}
+@media(max-width:600px){#content{padding-top:calc(var(--header-h) + 10px)}}
 .card{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:14px}
 .card-title{font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:2px;color:var(--accent2);margin-bottom:10px;text-transform:uppercase}
 .sec-title{font-family:'Share Tech Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:2px;margin-bottom:3px;text-transform:uppercase;margin-top:4px}
-.sec-sub{font-size:12px;color:var(--dim2);margin-bottom:14px;letter-spacing:.5px}
-
-/* ─── SEARCH ─── */
+.sec-sub{font-size:12px;color:var(--dim2);margin-bottom:14px}
 .search-wrap{position:relative;margin-bottom:10px}
 .sinp{width:100%;padding:9px 12px 9px 34px;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;-webkit-appearance:none}
 .sinp:focus{border-color:var(--accent)}
 .si{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--dim2);font-size:13px;pointer-events:none}
-
-/* ─── FILTERS ─── */
 .filter-row{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px}
-.ftag{padding:4px 9px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:10px;font-family:'Share Tech Mono',monospace;color:var(--dim2);cursor:pointer;transition:.12s;-webkit-tap-highlight-color:transparent}
+.ftag{padding:4px 9px;background:var(--card);border:1px solid var(--border);border-radius:10px;font-size:10px;font-family:'Share Tech Mono',monospace;color:var(--dim2);cursor:pointer;transition:.12s}
 .ftag.act{background:rgba(0,255,225,.08);border-color:var(--accent);color:var(--accent)}
-
-/* ─── MCU GRID ─── */
-.mcu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;max-height:380px;overflow-y:auto;padding-right:2px}
-@media(max-width:600px){.mcu-grid{grid-template-columns:1fr 1fr;max-height:320px}}
-.mcu-grid::-webkit-scrollbar{width:3px}
-.mcu-grid::-webkit-scrollbar-thumb{background:var(--border)}
+.mcu-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;max-height:360px;overflow-y:auto;padding-right:2px}
+@media(max-width:600px){.mcu-grid{grid-template-columns:1fr 1fr;max-height:300px}}
+.mcu-grid::-webkit-scrollbar,.sensor-grid::-webkit-scrollbar{width:3px}
+.mcu-grid::-webkit-scrollbar-thumb,.sensor-grid::-webkit-scrollbar-thumb{background:var(--border)}
 .mcu-card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:10px;cursor:pointer;transition:.12s}
+.mcu-card:hover{border-color:var(--b2)}
 .mcu-card.sel{border-color:var(--accent);background:rgba(0,255,225,.04)}
 .mcu-name{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent);margin-bottom:4px}
 .mcu-meta{font-size:10px;color:var(--dim2);line-height:1.7}
@@ -101,19 +72,14 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .badge-ti{background:#2a2a1a;color:var(--gold);border:1px solid var(--gold)}
 .badge-nrf{background:#1a2a2a;color:#56b6c2;border:1px solid #56b6c2}
 .badge-riscv{background:#2a1a2a;color:#f075b5;border:1px solid #f075b5}
-
-/* ─── SENSOR GRID ─── */
-.sensor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:7px;max-height:350px;overflow-y:auto}
-@media(max-width:600px){.sensor-grid{grid-template-columns:1fr 1fr;max-height:280px}}
-.sensor-grid::-webkit-scrollbar{width:3px}
-.sensor-grid::-webkit-scrollbar-thumb{background:var(--border)}
+.badge-custom{background:#1a2a1a;color:#00ffe1;border:1px solid #00ffe1}
+.sensor-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(148px,1fr));gap:7px;max-height:320px;overflow-y:auto}
+@media(max-width:600px){.sensor-grid{grid-template-columns:1fr 1fr;max-height:260px}}
 .sensor-card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:9px;cursor:pointer;transition:.12s}
 .sensor-card.sel{border-color:var(--gold);background:rgba(255,215,0,.04)}
 .sensor-name{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text);margin-bottom:2px}
 .sensor-type{font-size:9px;color:var(--dim2)}
 .sensor-iface{font-size:9px;color:var(--accent2)}
-
-/* ─── CHIPS ─── */
 .chips{display:flex;flex-wrap:wrap;gap:5px}
 .chip{padding:5px 10px;background:var(--card);border:1px solid var(--border);border-radius:3px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);cursor:pointer;transition:.12s;user-select:none}
 .chip:active{transform:scale(.97)}
@@ -121,13 +87,9 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .chip.so{background:rgba(255,107,53,.07);border-color:var(--accent2);color:var(--accent2)}
 .chip.sg{background:rgba(255,215,0,.07);border-color:var(--gold);color:var(--gold)}
 .chip.sp{background:rgba(189,147,249,.07);border-color:var(--purple);color:var(--purple)}
-
-/* ─── SEL LIST ─── */
 .sel-list{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px;min-height:30px;padding:7px;background:var(--surface);border:1px dashed var(--border);border-radius:3px}
 .sel-tag{display:flex;align-items:center;gap:5px;padding:3px 7px 3px 9px;background:var(--card);border:1px solid var(--b2);border-radius:10px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--text)}
 .sel-tag button{background:none;border:none;color:var(--dim2);cursor:pointer;font-size:12px;line-height:1;padding:0 2px}
-
-/* ─── FORM INPUTS ─── */
 .inp-grp{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
 .inp-grp label{font-family:'Share Tech Mono',monospace;font-size:8px;letter-spacing:2px;color:var(--dim2);text-transform:uppercase}
 .inp-grp input,.inp-grp select,.inp-grp textarea{padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;width:100%;-webkit-appearance:none;appearance:none}
@@ -135,30 +97,23 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .inp-grp input:focus,.inp-grp select:focus,.inp-grp textarea:focus{border-color:var(--accent)}
 .inp-grp select option{background:var(--panel)}
 .calc-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.calc-row3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
-@media(max-width:480px){.calc-row{grid-template-columns:1fr}.calc-row3{grid-template-columns:1fr 1fr}}
-
-/* ─── CALC RESULTS ─── */
+@media(max-width:480px){.calc-row{grid-template-columns:1fr}}
 .calc-result{background:var(--surface);border:1px solid var(--b2);border-radius:3px;padding:12px;margin-top:8px}
 .result-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:4px}
 .result-row:last-child{border:none}
-.rlabel{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);letter-spacing:.5px}
+.rlabel{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2)}
 .rvalue{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--accent);font-weight:700}
 .rvalue.ok{color:var(--green)}
 .rvalue.warn{color:var(--gold)}
-.btn-calc{padding:10px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;border-radius:3px;width:100%;margin-top:6px;transition:.15s}
+.btn-calc{padding:10px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;border-radius:3px;width:100%;margin-top:6px}
 .formula-box{background:rgba(0,255,225,.025);border:1px solid rgba(0,255,225,.1);border-radius:3px;padding:10px;margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim2);line-height:2}
 .formula-box .eq{color:var(--accent)}
-
-/* ─── TOGGLE ─── */
 .toggle{display:flex;align-items:center;gap:10px;cursor:pointer;padding:4px 0}
 .tgl-sw{width:38px;height:20px;background:var(--border);border-radius:10px;position:relative;transition:.2s;flex-shrink:0}
 .tgl-sw.on{background:var(--accent)}
 .tgl-sw::after{content:'';position:absolute;width:14px;height:14px;background:#fff;border-radius:50%;top:3px;left:3px;transition:.2s}
 .tgl-sw.on::after{left:21px}
-.tgl-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim2);letter-spacing:.5px}
-
-/* ─── TASK BUILDER ─── */
+.tgl-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--dim2)}
 .task-add-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px}
 @media(max-width:480px){.task-add-grid{grid-template-columns:1fr}}
 .btn-add{padding:9px 14px;background:transparent;border:1px solid var(--green);color:var(--green);font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;border-radius:3px;width:100%;margin-top:2px}
@@ -168,120 +123,99 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 .p-high{background:rgba(255,71,87,.12);color:var(--red);border:1px solid var(--red)}
 .p-med{background:rgba(255,215,0,.1);color:var(--gold);border:1px solid var(--gold)}
 .p-low{background:rgba(57,211,83,.1);color:var(--green);border:1px solid var(--green)}
-
-/* ─── TEXTAREA ─── */
 .t-area{width:100%;background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:10px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;line-height:1.7;resize:vertical;min-height:80px;outline:none}
 .t-area:focus{border-color:var(--accent)}
 .t-area::placeholder{color:var(--dim)}
-
-/* ─── PWM VIS ─── */
 .pwm-vis{height:50px;background:var(--panel);border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-top:8px}
 .pwm-wave{height:100%;display:flex}
 .pwm-hi{background:rgba(0,255,225,.2);border-right:1px solid var(--accent)}
-
-/* ─── MCU SELECTED BOX ─── */
 .mcu-sel-box{background:rgba(0,255,225,.04);border:1px solid var(--accent);border-radius:3px;padding:12px;margin-bottom:12px}
-.mcu-sel-box .mcu-sel-name{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:8px}
-.mcu-sel-box .mcu-sel-meta{font-size:12px;color:var(--dim2);line-height:2}
-.mcu-sel-box .mcu-sel-meta span{color:var(--text)}
-
-/* ─── DIVIDER ─── */
+.mcu-sel-name{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px}
+.mcu-sel-meta{font-size:12px;color:var(--dim2);line-height:2}
+.mcu-sel-meta span{color:var(--text)}
 .divider{height:1px;background:var(--border);margin:12px 0}
-
-/* ─── INFO BOX ─── */
 .info-box{background:rgba(88,166,255,.05);border:1px solid rgba(88,166,255,.2);border-radius:3px;padding:10px;font-size:12px;color:var(--blue);line-height:1.6;margin-bottom:10px}
 .count-badge{display:inline-block;background:var(--accent);color:#000;font-family:'Share Tech Mono',monospace;font-size:8px;padding:1px 5px;border-radius:6px;margin-left:5px;font-weight:700}
-
-/* ─── CUSTOM SENSOR ROW ─── */
-.custom-add-row{display:flex;gap:7px;margin-top:8px}
-.custom-add-row input{flex:1;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none;min-width:0}
+.custom-add-row{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+.custom-add-row input{flex:1;min-width:100px;padding:8px 10px;background:var(--surface);border:1px solid var(--border);border-radius:3px;color:var(--text);font-family:'JetBrains Mono',monospace;font-size:12px;outline:none}
 .custom-add-row input:focus{border-color:var(--accent)}
 .custom-add-row .btn-add{width:auto;margin-top:0;padding:8px 12px;white-space:nowrap}
-
-/* ─── BOTTOM BAR ─── */
-#bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:90;background:var(--surface);border-top:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:10px;height:var(--bottom-h)}
+#bottom-bar{position:fixed;bottom:0;left:0;right:0;z-index:90;background:var(--surface);border-top:1px solid var(--border);padding:10px 12px;display:flex;align-items:center;gap:8px;height:var(--bottom-h)}
 .bb-summary{flex:1;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .bb-summary span{color:var(--accent)}
-.btn-copy-prompt{padding:0 20px;height:42px;background:var(--accent);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;border:none;border-radius:3px;font-weight:700;white-space:nowrap;transition:.15s;flex-shrink:0}
-.btn-copy-prompt:hover,.btn-copy-prompt:active{background:#00d4be;box-shadow:0 0 20px rgba(0,255,225,.35)}
-.btn-view-prompt{padding:0 12px;height:42px;background:transparent;border:1px solid var(--border);color:var(--dim2);font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:3px;white-space:nowrap;flex-shrink:0}
-.btn-view-prompt:active{border-color:var(--accent);color:var(--accent)}
-
-/* ─── PROMPT MODAL ─── */
+.btn-copy-prompt{padding:0 18px;height:42px;background:var(--accent);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;border:none;border-radius:3px;font-weight:700;white-space:nowrap;flex-shrink:0}
+.btn-copy-prompt:active{background:#00d4be}
+.btn-view-prompt{padding:0 12px;height:42px;background:transparent;border:1px solid var(--border);color:var(--dim2);font-family:'Share Tech Mono',monospace;font-size:9px;cursor:pointer;border-radius:3px;white-space:nowrap;flex-shrink:0}
 #prompt-modal{position:fixed;inset:0;z-index:200;background:rgba(7,10,13,.97);display:none;flex-direction:column}
-.pm-header{display:flex;align-items:center;padding:12px 14px;background:var(--surface);border-bottom:1px solid var(--border);gap:10px;flex-wrap:wrap}
+.pm-header{display:flex;align-items:center;padding:12px 14px;background:var(--surface);border-bottom:1px solid var(--border);gap:8px;flex-wrap:wrap}
 .pm-title{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent);letter-spacing:2px;flex:1;min-width:120px}
-.btn-pm{padding:8px 14px;background:var(--accent);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:1px;cursor:pointer;border:none;border-radius:3px;font-weight:700;white-space:nowrap}
+.btn-pm{padding:8px 14px;background:var(--accent);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;border:none;border-radius:3px;font-weight:700;white-space:nowrap}
 .btn-pm2{padding:8px 12px;background:transparent;border:1px solid var(--border);color:var(--dim2);font-family:'Share Tech Mono',monospace;font-size:9px;cursor:pointer;border-radius:3px;white-space:nowrap}
 .pm-body{flex:1;overflow:auto;padding:14px}
 .pm-body::-webkit-scrollbar{width:4px}
 .pm-body::-webkit-scrollbar-thumb{background:var(--border)}
-.prompt-box{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9;color:#8be9fd;white-space:pre-wrap;word-break:break-word;background:var(--panel);border:1px solid var(--border);border-radius:3px;padding:14px}
-.pm-tip{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);letter-spacing:1px;margin-top:10px;padding:10px;background:rgba(0,255,225,.03);border:1px dashed var(--border);border-radius:3px;line-height:1.8}
+.prompt-box{font-family:'JetBrains Mono',monospace;font-size:11px;line-height:1.9;color:#8be9fd;white-space:pre-wrap;word-break:break-word;background:var(--panel);border:1px solid var(--border);border-radius:3px;padding:14px;margin-bottom:14px}
+/* AI PLATFORMS */
+.ai-platforms{background:var(--panel);border:1px solid var(--border);border-radius:3px;padding:14px;margin-bottom:14px}
+.ai-platforms-title{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:2px;margin-bottom:10px}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.ai-btn{display:flex;flex-direction:column;align-items:center;gap:5px;padding:12px 8px;background:var(--card);border:1px solid var(--border);border-radius:4px;cursor:pointer;transition:.15s;text-decoration:none}
+.ai-btn:hover{border-color:var(--b2);background:rgba(255,255,255,.03)}
+.ai-btn:active{transform:scale(.97)}
+.ai-icon{font-size:22px}
+.ai-name{font-family:'Share Tech Mono',monospace;font-size:10px;color:var(--text)}
+.ai-desc{font-size:9px;color:var(--dim2);text-align:center}
+.ai-badge{font-size:8px;padding:1px 6px;border-radius:8px;font-family:'Share Tech Mono',monospace}
+.ai-chatgpt{border-color:#19c37d;color:#19c37d;background:rgba(25,195,125,.08)}
+.ai-claude{border-color:#cc785c;color:#cc785c;background:rgba(204,120,92,.08)}
+.ai-gemini{border-color:#4285f4;color:#4285f4;background:rgba(66,133,244,.08)}
+.ai-copilot{border-color:#7b68ee;color:#7b68ee;background:rgba(123,104,238,.08)}
+.ai-blackbox{border-color:#00ff88;color:#00ff88;background:rgba(0,255,136,.08)}
+.ai-perp{border-color:#20b2aa;color:#20b2aa;background:rgba(32,178,170,.08)}
+.pm-tip{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);letter-spacing:1px;padding:10px;background:rgba(0,255,225,.03);border:1px dashed var(--border);border-radius:3px;line-height:1.9}
 .pm-tip b{color:var(--accent2)}
-
-/* ─── CUSTOMIZE MODAL ─── */
-#cust-modal{position:fixed;inset:0;z-index:300;background:rgba(7,10,13,.97);display:none;flex-direction:column;overflow-y:auto}
-.cust-inner{max-width:560px;margin:0 auto;padding:20px 14px 40px}
-.cust-title{font-family:'Share Tech Mono',monospace;font-size:13px;color:var(--accent);letter-spacing:2px;margin-bottom:4px}
-.cust-sub{font-size:12px;color:var(--dim2);margin-bottom:18px}
-.cust-section{margin-bottom:18px}
-.cust-section-title{font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--accent2);letter-spacing:2px;margin-bottom:8px;text-transform:uppercase;border-bottom:1px solid var(--border);padding-bottom:5px}
-.cust-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-@media(max-width:480px){.cust-grid{grid-template-columns:1fr}}
-.cust-full{grid-column:1/-1}
-.color-row{display:flex;gap:7px;flex-wrap:wrap;margin:6px 0}
-.color-chip{width:28px;height:28px;border-radius:50%;cursor:pointer;border:2px solid transparent;transition:.15s}
-.color-chip.act,.color-chip:active{border-color:#fff;transform:scale(1.12)}
-.theme-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
-.btn-theme{padding:6px 10px;background:var(--card);border:1px solid var(--border);color:var(--dim2);font-family:'Share Tech Mono',monospace;font-size:9px;cursor:pointer;border-radius:3px;letter-spacing:.5px}
-.cust-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}
-.btn-apply{flex:1;min-width:100px;padding:11px;background:var(--accent);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;cursor:pointer;border:none;border-radius:3px;font-weight:700}
-.btn-reset2,.btn-close-cust{padding:11px 14px;background:transparent;font-family:'Share Tech Mono',monospace;font-size:9px;letter-spacing:1px;cursor:pointer;border-radius:3px}
-.btn-reset2{border:1px solid var(--border);color:var(--dim2)}
-.btn-close-cust{border:1px solid var(--border);color:var(--dim2)}
-
-/* ─── REF BOX ─── */
+/* HOW TO USE MODAL */
+#howto-modal{position:fixed;inset:0;z-index:201;background:rgba(7,10,13,.98);display:none;flex-direction:column;overflow-y:auto}
+.howto-inner{max-width:640px;margin:0 auto;padding:20px 14px 60px}
+.howto-title{font-family:'Share Tech Mono',monospace;font-size:14px;color:var(--accent);letter-spacing:2px;margin-bottom:4px}
+.howto-sub{font-size:13px;color:var(--dim2);margin-bottom:20px}
+.step-card{background:var(--panel);border:1px solid var(--border);border-radius:4px;padding:14px;margin-bottom:10px;display:flex;gap:12px}
+.step-num{font-family:'Share Tech Mono',monospace;font-size:20px;color:var(--accent);font-weight:700;min-width:32px;line-height:1}
+.step-body{}
+.step-title{font-family:'Share Tech Mono',monospace;font-size:11px;color:var(--accent2);letter-spacing:1px;margin-bottom:5px}
+.step-desc{font-size:13px;color:var(--text);line-height:1.8}
+.step-tip{font-size:11px;color:var(--dim2);margin-top:6px;padding:6px 8px;background:var(--card);border-left:2px solid var(--accent);border-radius:0 3px 3px 0}
+.btn-close-howto{padding:10px 20px;background:var(--accent);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;cursor:pointer;border:none;border-radius:3px;font-weight:700;margin-top:16px;width:100%}
+/* FOOTER */
+.footer{text-align:center;padding:10px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:1.5px;border-top:1px solid var(--border);margin-top:4px}
+/* TOAST */
+#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:8px 20px;border-radius:20px;z-index:400;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
 .ref-box{font-size:11px;line-height:2.1;color:var(--dim2);font-family:'JetBrains Mono',monospace}
 .ref-box b{color:var(--accent)}
-.ref-box .k2{color:var(--accent2)}
-
-/* ─── FOOTER ─── */
-.footer{text-align:center;padding:10px;font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim);letter-spacing:1.5px;border-top:1px solid var(--border);margin-top:4px}
-
-/* ─── COPIED TOAST ─── */
-#toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--green);color:#000;font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;padding:8px 20px;border-radius:20px;z-index:400;opacity:0;transition:opacity .3s;pointer-events:none}
 </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header class="app-header">
   <div class="hlogo" onclick="showSection('mcu')">EMBEDGEN<span class="hver">PRO</span></div>
-  <div style="font-family:'Share Tech Mono',monospace;font-size:8px;color:var(--dim2);letter-spacing:1px;white-space:nowrap;display:none" id="dev-credit" class="dev-credit">by Ishwar Bagad</div>
   <div class="hspacer"></div>
-  <button class="btn-customize" onclick="openCustomize()">⚙ CUSTOMIZE</button>
+  <button class="hbtn blue" onclick="openHowTo()">❓ HOW TO USE</button>
   <div class="btn-hamburger" id="hamburger" onclick="toggleNav()">
     <span></span><span></span><span></span>
   </div>
 </header>
 
-<!-- NAV -->
 <div id="nav-wrap">
   <nav class="hnav" id="hnav"></nav>
 </div>
 
-<!-- CONTENT -->
 <div id="content">
   <div id="section-body"></div>
-  <div class="footer" id="footer-text">
-  ⚡ EMBEDGEN PRO · Embedded AI Prompt Builder · v3.0<br>
-  <span style="color:var(--accent);letter-spacing:2px;font-size:10px">Developed by <b>Ishwar Bagad</b></span><br>
-  <span style="color:var(--dim);font-size:9px">B.E. Electronics & Telecommunication · Embedded Systems Engineer · Pune, India</span>
-</div>
+  <div class="footer">⚡ EMBEDGEN PRO v4.0 · Industrial Embedded AI Prompt Builder<br>
+    <span style="color:var(--accent)">Developed by <b>Ishwar Bagad</b></span> · B.E. Electronics & Telecommunication · Pune, India
+  </div>
 </div>
 
-<!-- BOTTOM BAR -->
 <div id="bottom-bar">
   <div class="bb-summary" id="bb-sum">Select MCU to begin building your prompt...</div>
   <button class="btn-view-prompt" onclick="openPromptModal()">👁 VIEW</button>
@@ -291,97 +225,159 @@ body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(
 <!-- PROMPT MODAL -->
 <div id="prompt-modal">
   <div class="pm-header">
-    <div class="pm-title">⚡ YOUR AI PROMPT — READY TO COPY</div>
+    <div class="pm-title">⚡ YOUR EMBEDDED FIRMWARE PROMPT</div>
     <button class="btn-pm" onclick="copyPromptFromModal()">⧉ COPY ALL</button>
     <button class="btn-pm2" onclick="closePromptModal()">✕ CLOSE</button>
   </div>
   <div class="pm-body">
+    <div class="ai-platforms">
+      <div class="ai-platforms-title">🚀 OPEN IN AI PLATFORM — Click to copy prompt & open</div>
+      <div class="ai-grid">
+        <div class="ai-btn" onclick="openAI('https://chat.openai.com','ChatGPT')">
+          <span class="ai-icon">🤖</span>
+          <span class="ai-name">ChatGPT</span>
+          <span class="ai-badge ai-chatgpt">GPT-4o</span>
+          <span class="ai-desc">Best for complete firmware code</span>
+        </div>
+        <div class="ai-btn" onclick="openAI('https://claude.ai','Claude')">
+          <span class="ai-icon">🧠</span>
+          <span class="ai-name">Claude</span>
+          <span class="ai-badge ai-claude">Sonnet</span>
+          <span class="ai-desc">Best for explained, safe code</span>
+        </div>
+        <div class="ai-btn" onclick="openAI('https://gemini.google.com','Gemini')">
+          <span class="ai-icon">✨</span>
+          <span class="ai-name">Gemini</span>
+          <span class="ai-badge ai-gemini">2.0 Flash</span>
+          <span class="ai-desc">Good for IoT & cloud code</span>
+        </div>
+        <div class="ai-btn" onclick="openAI('https://github.com/copilot','Copilot')">
+          <span class="ai-icon">🐙</span>
+          <span class="ai-name">GitHub Copilot</span>
+          <span class="ai-badge ai-copilot">IDE</span>
+          <span class="ai-desc">Best inside VS Code / IDE</span>
+        </div>
+        <div class="ai-btn" onclick="openAI('https://www.blackbox.ai','Blackbox')">
+          <span class="ai-icon">⬛</span>
+          <span class="ai-name">Blackbox AI</span>
+          <span class="ai-badge ai-blackbox">Code</span>
+          <span class="ai-desc">Code-focused, fast output</span>
+        </div>
+        <div class="ai-btn" onclick="openAI('https://www.perplexity.ai','Perplexity')">
+          <span class="ai-icon">🔍</span>
+          <span class="ai-name">Perplexity</span>
+          <span class="ai-badge ai-perp">Pro</span>
+          <span class="ai-desc">Good for datasheet lookup</span>
+        </div>
+      </div>
+    </div>
     <div class="prompt-box" id="prompt-text-box"></div>
     <div class="pm-tip">
       <b>HOW TO USE THIS PROMPT:</b><br>
-      1. Click <b>COPY ALL</b> above<br>
-      2. Go to any AI platform: <b>ChatGPT · Claude · Gemini · Copilot · Grok</b><br>
-      3. Paste the prompt and hit Enter<br>
-      4. Get complete embedded firmware code instantly!<br><br>
-      <b>TIP:</b> Add your own specific notes at the end of the prompt before sending.
+      1. Click any AI platform above — prompt is copied automatically<br>
+      2. Open the AI tab that appears → paste (Ctrl+V / Cmd+V) → Enter<br>
+      3. AI will generate production-quality embedded firmware code<br>
+      4. Add your own extra notes at the end before submitting<br><br>
+      <b>PRO TIP:</b> For STM32 HAL code use ChatGPT or Claude. For IoT/MQTT code use Gemini.
     </div>
   </div>
 </div>
 
-<!-- CUSTOMIZE MODAL -->
-<div id="cust-modal">
-  <div class="cust-inner">
-    <div class="cust-title">⚙ CUSTOMIZE</div>
-    <div class="cust-sub">Personalize EmbedGen Pro to your preferences</div>
-    <div class="cust-section">
-      <div class="cust-section-title">🏷 Branding</div>
-      <div class="cust-grid">
-        <div class="inp-grp"><label>App Title</label><input id="c-title" value="EMBEDGEN PRO"></div>
-        <div class="inp-grp"><label>Version Tag</label><input id="c-ver" value="PRO"></div>
-        <div class="inp-grp cust-full"><label>Developer Name</label><input id="c-devname" value="Ishwar Bagad"></div>
-        <div class="inp-grp cust-full"><label>Footer Text</label><input id="c-footer" value="⚡ EMBEDGEN PRO · Developed by Ishwar Bagad · Embedded AI Prompt Builder · v3.0"></div>
+<!-- HOW TO USE MODAL -->
+<div id="howto-modal">
+  <div class="howto-inner">
+    <div class="howto-title">📘 HOW TO USE EMBEDGEN PRO</div>
+    <div class="howto-sub">Complete step-by-step guide from start to finish</div>
+
+    <div class="step-card">
+      <div class="step-num">01</div>
+      <div class="step-body">
+        <div class="step-title">🔧 SELECT YOUR MCU</div>
+        <div class="step-desc">Go to the <b>MCU tab</b>. Search by name (e.g. "STM32F407") or browse by family filter. Click your microcontroller to select it. You can also add a custom MCU not in the list.</div>
+        <div class="step-tip">💡 The clock speed auto-fills from the MCU. Change it manually if you use a different PLL config.</div>
       </div>
     </div>
-    <div class="cust-section">
-      <div class="cust-section-title">🎨 Accent Color</div>
-      <div class="color-row" id="color-chips">
-        <div class="color-chip act" data-color="#00ffe1" style="background:#00ffe1" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#ff6b35" style="background:#ff6b35" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#ffd700" style="background:#ffd700" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#bd93f9" style="background:#bd93f9" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#39d353" style="background:#39d353" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#58a6ff" style="background:#58a6ff" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#ff79c6" style="background:#ff79c6" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#f1fa8c" style="background:#f1fa8c" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#ff5555" style="background:#ff5555" onclick="pickColor(this)"></div>
-        <div class="color-chip" data-color="#50fa7b" style="background:#50fa7b" onclick="pickColor(this)"></div>
-      </div>
-      <div class="inp-grp"><label>Custom Hex</label><input id="c-color" value="#00ffe1" placeholder="#00ffe1" oninput="previewColor(this.value)"></div>
-    </div>
-    <div class="cust-section">
-      <div class="cust-section-title">🌑 Background Theme</div>
-      <div class="theme-row">
-        <button class="btn-theme" onclick="setTheme('dark-blue')">🔵 Blue</button>
-        <button class="btn-theme" onclick="setTheme('dark-green')">🟢 Green</button>
-        <button class="btn-theme" onclick="setTheme('dark-purple')">🟣 Purple</button>
-        <button class="btn-theme" onclick="setTheme('dark-red')">🔴 Red</button>
-        <button class="btn-theme" onclick="setTheme('near-black')">⚫ Black</button>
-        <button class="btn-theme" onclick="setTheme('default')">✦ Default</button>
-      </div>
-      <div class="cust-grid" style="margin-top:8px">
-        <div class="inp-grp"><label>Background</label><input id="c-bg" value="#070a0d"></div>
-        <div class="inp-grp"><label>Surface</label><input id="c-surface" value="#0c1117"></div>
-        <div class="inp-grp"><label>Panel</label><input id="c-panel" value="#101820"></div>
-        <div class="inp-grp"><label>Card</label><input id="c-card" value="#141e28"></div>
+
+    <div class="step-card">
+      <div class="step-num">02</div>
+      <div class="step-body">
+        <div class="step-title">⚙ CHOOSE FRAMEWORK & SETTINGS</div>
+        <div class="step-desc">Below the MCU grid, select your <b>Framework</b> (e.g. STM32 HAL, ESP-IDF, FreeRTOS+HAL), <b>Language</b> (C/C++), and <b>Code Style</b>. Add a project name and target application.</div>
+        <div class="step-tip">💡 For beginners use HAL. For production use LL (Low Layer) for better performance.</div>
       </div>
     </div>
-    <div class="cust-section">
-      <div class="cust-section-title">🔤 Font</div>
-      <div class="inp-grp"><label>UI Font</label>
-        <select id="c-font">
-          <option value="'Rajdhani',sans-serif">Rajdhani (Default)</option>
-          <option value="'Share Tech Mono',monospace">Share Tech Mono</option>
-          <option value="'JetBrains Mono',monospace">JetBrains Mono</option>
-          <option value="Arial,sans-serif">Arial</option>
-          <option value="'Segoe UI',sans-serif">Segoe UI</option>
-        </select>
+
+    <div class="step-card">
+      <div class="step-num">03</div>
+      <div class="step-body">
+        <div class="step-title">⚡ SELECT PERIPHERALS</div>
+        <div class="step-desc">Go to <b>Peripherals tab</b>. Click all MCU peripherals your project uses — GPIO, ADC, PWM, DMA, EXTI, etc. Also choose what type of code you want — Full Project, Driver Library, ISR Handler, etc.</div>
+        <div class="step-tip">💡 The more specific you select, the better the AI-generated code will be.</div>
       </div>
     </div>
-    <div class="cust-actions">
-      <button class="btn-apply" onclick="applyCustomize()">✓ APPLY</button>
-      <button class="btn-reset2" onclick="resetCustomize()">↺ RESET</button>
-      <button class="btn-close-cust" onclick="closeCustomize()">✕ CLOSE</button>
+
+    <div class="step-card">
+      <div class="step-num">04</div>
+      <div class="step-body">
+        <div class="step-title">📡 ADD SENSORS & MODULES</div>
+        <div class="step-desc">Go to <b>Sensors tab</b>. Browse 65+ industrial sensors. Filter by type or search by name. If your sensor is not listed, use <b>Add Custom Sensor</b> at the bottom.</div>
+        <div class="step-tip">💡 Select sensor + protocol together for best prompt (e.g. MPU6050 + I2C Master).</div>
+      </div>
     </div>
+
+    <div class="step-card">
+      <div class="step-num">05</div>
+      <div class="step-body">
+        <div class="step-title">🔌 SELECT PROTOCOLS</div>
+        <div class="step-desc">Go to <b>Protocols tab</b>. Select all communication interfaces used — UART, SPI, I2C, CAN, MQTT, RS-485, etc. You can also add a custom protocol not in the list.</div>
+        <div class="step-tip">💡 Select exactly what your hardware uses. Each selected protocol adds detailed config instructions to the prompt.</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">06</div>
+      <div class="step-body">
+        <div class="step-title">📊 USE CALCULATORS (Optional)</div>
+        <div class="step-desc">Use the <b>ADC, Timer, PWM, UART tabs</b> to calculate register values manually. Enter your clock and target frequency — it gives exact PSC, ARR, CCR, BRR values with error percentage.</div>
+        <div class="step-tip">💡 These calculators work independently. You can use them even without building a prompt.</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">07</div>
+      <div class="step-body">
+        <div class="step-title">🛡 RTOS & SAFETY (Optional)</div>
+        <div class="step-desc">Go to <b>RTOS tab</b>. Enable FreeRTOS / Zephyr, add tasks with name, priority and stack size. Also select safety features like Watchdog, Hard Fault Handler, CRC Verification.</div>
+        <div class="step-tip">💡 For industrial projects always enable IWDG Watchdog and Hard Fault Handler.</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">08</div>
+      <div class="step-body">
+        <div class="step-title">📝 ADD REQUIREMENTS</div>
+        <div class="step-desc">Go to <b>Requirements tab</b>. Write your specific requirements — e.g. "Read ACS712 every 50ms, alert if current >5A, send data via MQTT to ThingsBoard". The more detail you add, the better the AI output.</div>
+        <div class="step-tip">💡 Include timing requirements, threshold values, and output format for best results.</div>
+      </div>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">09</div>
+      <div class="step-body">
+        <div class="step-title">🚀 GENERATE & USE PROMPT</div>
+        <div class="step-desc">Click <b>VIEW</b> or <b>COPY PROMPT</b> at the bottom. In the VIEW modal, click any AI platform (ChatGPT, Claude, Gemini etc.) — prompt is copied automatically. Paste it in the AI chat and get complete firmware code.</div>
+        <div class="step-tip">💡 For best results use ChatGPT GPT-4o or Claude for STM32/ESP32 firmware code generation.</div>
+      </div>
+    </div>
+
+    <button class="btn-close-howto" onclick="closeHowTo()">✓ GOT IT — START BUILDING</button>
   </div>
 </div>
 
-<!-- TOAST -->
-<div id="toast">✓ PROMPT COPIED!</div>
+<div id="toast">✓ COPIED!</div>
 
 <script>
-// ═══════════════════════════════════════════
-// DATABASE
-// ═══════════════════════════════════════════
+// ═══ DATABASE ═══
 const MCUS=[
   ['STM32F030C8','STM32F030C8T6','STM32F0','Cortex-M0','48MHz','64KB','8KB','Budget'],
   ['STM32F072RB','STM32F072RBT6','STM32F0','Cortex-M0','48MHz','128KB','16KB','USB FS, CAN'],
@@ -389,7 +385,7 @@ const MCUS=[
   ['STM32F103RB','STM32F103RBT6','STM32F1','Cortex-M3','72MHz','128KB','20KB','Nucleo-64'],
   ['STM32F103VE','STM32F103VET6','STM32F1','Cortex-M3','72MHz','512KB','64KB','High density'],
   ['STM32F303CC','STM32F303CCT6','STM32F3','Cortex-M4F','72MHz','256KB','40KB','Motor ctrl'],
-  ['STM32F401RE','STM32F401RET6','STM32F4','Cortex-M4F','84MHz','512KB','96KB','Nucleo, LP'],
+  ['STM32F401RE','STM32F401RET6','STM32F4','Cortex-M4F','84MHz','512KB','96KB','Nucleo LP'],
   ['STM32F407VG','STM32F407VGT6','STM32F4','Cortex-M4F','168MHz','1MB','192KB','Discovery'],
   ['STM32F411CE','STM32F411CEU6','STM32F4','Cortex-M4F','100MHz','512KB','128KB','Black Pill'],
   ['STM32F429ZI','STM32F429ZIT6','STM32F4','Cortex-M4F','180MHz','2MB','256KB','TFT LCD'],
@@ -399,25 +395,25 @@ const MCUS=[
   ['STM32H743ZI','STM32H743ZIT6','STM32H7','Cortex-M7','480MHz','2MB','1MB','High perf'],
   ['STM32G431RB','STM32G431RBT6','STM32G4','Cortex-M4F','170MHz','128KB','22KB','Motor+math'],
   ['STM32G474RE','STM32G474RET6','STM32G4','Cortex-M4F','170MHz','512KB','128KB','HRTIM,FDCAN'],
-  ['STM32L476RG','STM32L476RGT6','STM32L4','Cortex-M4F','80MHz','1MB','128KB','IoT, LP'],
+  ['STM32L476RG','STM32L476RGT6','STM32L4','Cortex-M4F','80MHz','1MB','128KB','IoT LP'],
   ['STM32WB55RG','STM32WB55RGV6','STM32WB','M4+M0 BLE','64MHz','1MB','256KB','BLE 5.2'],
   ['LPC2148','LPC2148FBD64','LPC2xxx','ARM7TDMI','60MHz','512KB','32KB','USB OTG'],
   ['LPC1768','LPC1768FBD100','LPC17xx','Cortex-M3','100MHz','512KB','64KB','Ethernet,USB'],
   ['LPC1769','LPC1769FBD100','LPC17xx','Cortex-M3','120MHz','512KB','64KB','High perf'],
   ['LPC55S69','LPC55S69JBD100','LPC55xx','Cortex-M33','150MHz','640KB','320KB','TrustZone'],
-  ['PIC16F84A','PIC16F84A-20/P','PIC16','PIC8','20MHz','1.75KB','68B','Classic DIP-18'],
+  ['PIC16F84A','PIC16F84A-20/P','PIC16','PIC8','20MHz','1.75KB','68B','Classic DIP'],
   ['PIC16F877A','PIC16F877A-I/P','PIC16','PIC8','20MHz','14.3KB','368B','40-pin'],
   ['PIC18F4520','PIC18F4520-I/P','PIC18','PIC8-HV','40MHz','32KB','1.5KB','CAN'],
   ['PIC18F4580','PIC18F4580-I/P','PIC18','PIC8-HV','40MHz','32KB','1.5KB','ECAN'],
   ['PIC18F2550','PIC18F2550-I/SP','PIC18','PIC8-HV','48MHz','32KB','2KB','USB FS'],
-  ['PIC32MX795F512L','PIC32MX795','PIC32','MIPS32','80MHz','512KB','128KB','Eth,CAN,USB'],
+  ['PIC32MX795','PIC32MX795F512L','PIC32','MIPS32','80MHz','512KB','128KB','Eth,CAN,USB'],
   ['ATmega328P','ATmega328P-PU','AVR','AVR8','16MHz','32KB','2KB','Arduino UNO'],
   ['ATmega2560','ATmega2560-16AU','AVR','AVR8','16MHz','256KB','8KB','Mega 2560'],
   ['ATmega32','ATmega32-16PU','AVR','AVR8','16MHz','32KB','2KB','DIP-40'],
   ['ATmega16','ATmega16-16PU','AVR','AVR8','16MHz','16KB','1KB','DIP-40'],
   ['ATtiny85','ATtiny85-20PU','AVR','AVR8','20MHz','8KB','512B','DIP-8 tiny'],
   ['ESP32','ESP32-WROOM-32','ESP','LX6 Dual','240MHz','4MB','520KB','WiFi+BT'],
-  ['ESP32-S3','ESP32-S3-WROOM-1','ESP','LX7 Dual','240MHz','8MB','512KB','AI,USB'],
+  ['ESP32-S3','ESP32-S3-WROOM-1','ESP','LX7 Dual','240MHz','8MB','512KB','AI+USB'],
   ['ESP32-C3','ESP32-C3-MINI-1','ESP','RISC-V','160MHz','4MB','400KB','WiFi+BLE'],
   ['ESP32-C6','ESP32-C6-MINI-1','ESP','RISC-V','160MHz','4MB','512KB','WiFi6+Matter'],
   ['ESP8266','ESP-12E','ESP','LX106','80MHz','4MB','96KB','WiFi only'],
@@ -438,20 +434,20 @@ const MCUS=[
 ];
 const SENSORS=[
   ['DS18B20','Temperature','1-Wire'],['LM35','Temperature','ADC'],
-  ['PT100 RTD','Temperature','ADC+Bridge'],['MLX90614','Temperature IR','I2C'],
-  ['MAX6675','Thermocouple K','SPI'],['DHT22','Temp+Humidity','1-Wire'],
+  ['PT100 RTD','Temperature','ADC+Bridge'],['MLX90614','IR Temperature','I2C'],
+  ['MAX6675','Thermocouple-K','SPI'],['DHT22','Temp+Humidity','1-Wire'],
   ['DHT11','Temp+Humidity','1-Wire'],['SHT31','Temp+Humidity','I2C'],
-  ['BME280','Temp+Humidity+Press','I2C/SPI'],['BME680','Env+Gas','I2C/SPI'],
-  ['ACS712-5A','Current','ADC'],['ACS712-20A','Current','ADC'],
-  ['ACS712-30A','Current','ADC'],['INA219','Current+Voltage','I2C'],
+  ['BME280','Temp+Humidity+Pressure','I2C/SPI'],['BME680','Env+Gas','I2C/SPI'],
+  ['ACS712-5A','Current Sensor','ADC'],['ACS712-20A','Current Sensor','ADC'],
+  ['ACS712-30A','Current Sensor','ADC'],['INA219','Current+Voltage','I2C'],
   ['INA226','Power Monitor','I2C'],['ZMPT101B','AC Voltage','ADC'],
-  ['SCT-013','AC Current','ADC'],['BMP280','Pressure','I2C/SPI'],
-  ['MPX5700','Pressure Analog','ADC'],['MQ2','Gas LPG/Smoke','ADC'],
+  ['SCT-013','AC Current (CT)','ADC'],['BMP280','Pressure','I2C/SPI'],
+  ['MPX5700','Pressure Analog','ADC'],['MQ2','Gas: LPG/Smoke','ADC'],
   ['MQ135','Air Quality','ADC'],['MQ7','CO Gas','ADC'],
   ['CCS811','TVOC+eCO2','I2C'],['MPU6050','Accel+Gyro 6DOF','I2C'],
   ['MPU9250','9DOF IMU','I2C/SPI'],['BNO055','9DOF+Fusion','I2C'],
   ['ADXL345','Accelerometer','I2C/SPI'],['SW-420','Vibration','Digital'],
-  ['HC-SR04','Ultrasonic','GPIO'],['VL53L0X','ToF Laser','I2C'],
+  ['HC-SR04','Ultrasonic Distance','GPIO'],['VL53L0X','ToF Laser','I2C'],
   ['LDR','Light Intensity','ADC'],['BH1750','Ambient Light','I2C'],
   ['APDS9960','Color+Gesture','I2C'],['TCS34725','RGB Color','I2C'],
   ['L298N','DC Motor Driver','GPIO+PWM'],['A4988','Stepper Driver','GPIO'],
@@ -459,128 +455,95 @@ const SENSORS=[
   ['Servo MG996R','Servo Motor','PWM'],['Quad Encoder','Position/Speed','GPIO'],
   ['AS5048A','Magnetic Encoder','SPI'],['LCD 16x2','Display','GPIO/I2C'],
   ['OLED SSD1306','Display','I2C/SPI'],['TFT ILI9341','Color TFT','SPI'],
-  ['MAX7219','LED Matrix','SPI'],['HC-05','Bluetooth Classic','UART'],
+  ['MAX7219','LED Matrix Driver','SPI'],['HC-05','Bluetooth Classic','UART'],
   ['HM-10','BLE 4.0','UART'],['NRF24L01','2.4GHz RF','SPI'],
   ['LoRa SX1276','LoRa 868/915MHz','SPI'],['SIM800L','GSM/GPRS','UART'],
   ['NEO-6M','GPS','UART'],['NEO-M8N','GPS+GLONASS','UART'],
   ['W5500','Ethernet','SPI'],['SD Card','Storage','SPI'],
   ['24C256 EEPROM','EEPROM','I2C'],['W25Q64 Flash','NOR Flash','SPI'],
   ['RC522 RFID','RFID 13.56MHz','SPI'],['HX711','Load Cell ADC','GPIO'],
-  ['MAX485','RS-485','UART'],['MCP2515','CAN Controller','SPI'],
-  ['WS2812B','RGB LED Strip','1-Wire'],['Soil Moisture','Soil Water','ADC'],
-  ['Rain Sensor','Precipitation','ADC'],['FSR Force Sensor','Force','ADC'],
-  ['KY040 Encoder','Rotary Encoder','GPIO'],['HX710B','Pressure ADC','GPIO'],
+  ['MAX485','RS-485 Transceiver','UART'],['MCP2515','CAN Controller','SPI'],
+  ['WS2812B','RGB LED Strip','1-Wire'],['HX710B','Pressure ADC','GPIO'],
+  ['KY040','Rotary Encoder','GPIO'],['FSR','Force Sensor','ADC'],
 ];
-const MCU_FAMILIES=['All','STM32F1','STM32F4','STM32F7','STM32H7','STM32G4','STM32L4','STM32WB','LPC2xxx','LPC17xx','PIC16','PIC18','PIC32','AVR','ESP','Arduino','TI','Nordic','Raspberry','SAM','Infineon','RISC-V'];
-const SENSOR_TYPES=['All','Temperature','Current','Pressure','Gas','IMU','Distance','Light','Motor','Display','Wireless','Storage','Other'];
-const FRAMEWORKS=['STM32 HAL (CubeIDE)','STM32 LL (Low Layer)','Bare Metal (CMSIS)','ESP-IDF','Arduino Framework','FreeRTOS + HAL','Zephyr RTOS','CMSIS-RTOS2','LibOpenCM3','MicroPython'];
-const PERIPHERALS=['GPIO Input','GPIO Output','ADC Single','ADC Continuous DMA','DAC','PWM (Timer)','Input Capture','Encoder Interface','EXTI Interrupt','Timer Basic','Timer Advanced','DMA Transfer','RTC Calendar','IWDG Watchdog','WWDG Watchdog','Flash R/W','USB CDC','USB HID','Low Power Sleep','Standby Mode'];
-const PROTOCOLS=['UART/USART','SPI Master','SPI Slave','I2C Master','I2C Slave','CAN 2.0B','FDCAN','RS-485 Modbus','USB CDC-ACM','USB HID','MQTT (TCP)','HTTP REST','HTTPS TLS','BLE GATT','LoRa SX1276','1-Wire','LIN Bus','Ethernet TCP/IP'];
-const CODE_TYPES=['Initialization Code','Complete Working Project','ISR Handler','FreeRTOS Multi-Task','Driver Library (.c/.h)','State Machine','Ring Buffer / Circular DMA','PID Controller','Data Parser/Formatter','Threshold Alert Logic','Low Power Manager','Error/Fault Handler','OTA Firmware Update','Bootloader Jump'];
-const SAFETY=['IWDG Watchdog','WWDG Watchdog','Stack Overflow Check','Hard Fault Handler','Assert Macros','MPU Protection','Error Logging UART','CRC Data Verification','Power Fail Detection'];
-const LANGUAGES=['C (Embedded)','C++ (Embedded)','Assembly (ARM)','MicroPython'];
-const CODESTYLES=['HAL (High Abstraction)','LL (Low Level Registers)','Bare Metal (Direct Registers)','CMSIS Only'];
+const MCU_FAMILIES=['All','STM32F0','STM32F1','STM32F4','STM32F7','STM32H7','STM32G4','STM32L4','STM32WB','LPC2xxx','LPC17xx','PIC16','PIC18','PIC32','AVR','ESP','Arduino','TI','Nordic','Raspberry','SAM','Infineon','RISC-V','Custom'];
+const SENSOR_TYPES=['All','Temperature','Current','Pressure','Gas','IMU','Distance','Light','Motor','Display','Wireless','Storage','Custom'];
+const FRAMEWORKS=['STM32 HAL (CubeIDE)','STM32 LL (Low Layer)','Bare Metal (CMSIS)','ESP-IDF (v5.x)','Arduino Framework','FreeRTOS + HAL','Zephyr RTOS','CMSIS-RTOS2','LibOpenCM3','MicroPython','TI DriverLib','Nordic nRF5 SDK'];
+const PERIPHERALS=['GPIO Input','GPIO Output','ADC Single-Channel','ADC Multi-Channel DMA','DAC Output','PWM Generation','Input Capture','Encoder Interface','EXTI Interrupt','Timer Basic Interrupt','Timer Advanced (TIM1/8)','DMA Transfer','DMA Circular Buffer','RTC Calendar','IWDG Watchdog','WWDG Watchdog','Flash Read/Write','USB CDC (Virtual COM)','USB HID','Low Power SLEEP','STOP Mode','STANDBY Mode'];
+const PROTOCOLS=['UART/USART (Polling)','UART/USART (Interrupt)','UART/USART (DMA)','SPI Master','SPI Slave','I2C Master','I2C Slave','CAN 2.0B','FDCAN (CAN FD)','RS-485 Modbus RTU','RS-485 Modbus TCP','USB CDC-ACM','USB HID','MQTT (TCP/IP)','HTTP REST','HTTPS TLS','BLE GATT Server','BLE GATT Client','LoRa SX1276','1-Wire','LIN Bus','Ethernet TCP/IP','SNTP Time Sync','OTA via HTTP'];
+const CODE_TYPES=['Complete Working Project','Initialization Code Only','ISR Handler','FreeRTOS Multi-Task','Peripheral Driver (.c/.h)','State Machine','Ring Buffer / Circular DMA','PID Controller','Kalman Filter','Data Parser/Formatter','Threshold Alert Logic','Low Power Manager','Error/Fault Handler','OTA Firmware Update','Bootloader Jump','Unit Test Framework'];
+const SAFETY=['IWDG Watchdog','WWDG Watchdog','Stack Overflow Check','Hard Fault Handler','Assert Macros','MPU Memory Protection','Error Logging via UART','CRC Data Verification','Power Fail Detection','Safe State on Fault','Checksum Validation','Flash Write Protection'];
+const LANGUAGES=['C (Embedded)','C++ (Embedded)','Assembly (ARM Cortex)','MicroPython'];
+const CODESTYLES=['HAL (High Abstraction)','LL (Low Level Registers)','Bare Metal (Direct Registers)','CMSIS Only','Register-Level + HAL Mix'];
+const FM_COLORS={STM32F0:'badge-stm32',STM32F1:'badge-stm32',STM32F3:'badge-stm32',STM32F4:'badge-stm32',STM32F7:'badge-stm32',STM32H7:'badge-stm32',STM32G4:'badge-stm32',STM32L4:'badge-stm32',STM32WB:'badge-stm32',LPC2xxx:'badge-lpc',LPC17xx:'badge-lpc',LPC55xx:'badge-lpc',PIC16:'badge-pic',PIC18:'badge-pic',PIC32:'badge-pic',AVR:'badge-avr',ESP:'badge-esp',Arduino:'badge-arm',TI:'badge-ti',Nordic:'badge-nrf',Raspberry:'badge-arm',SAM:'badge-arm',Infineon:'badge-arm','RISC-V':'badge-riscv',Custom:'badge-custom'};
 
-// ═══════════════════════════════════════════
-// STATE
-// ═══════════════════════════════════════════
+// ═══ STATE ═══
 const S={
-  mcu:null,framework:null,clock:'',voltage:'3.3V',language:'C (Embedded)',codeStyle:'HAL (High Abstraction)',
-  peripherals:[],sensors:[],customSensors:[],protocols:[],codeTypes:[],safetyFeatures:[],
+  mcu:null,customMCUs:[],framework:null,clock:'',voltage:'3.3V',language:'C (Embedded)',codeStyle:'HAL (High Abstraction)',
+  peripherals:[],sensors:[],customSensors:[],protocols:[],customProtocols:[],codeTypes:[],safetyFeatures:[],
   rtos:false,rtosType:'FreeRTOS',tasks:[],heapSize:'10240',
-  includeComments:true,includeHeaders:true,addExamples:true,addFormulas:true,
+  includeComments:true,includeHeaders:true,addExamples:true,addFormulas:true,addMISRA:true,
   customReq:'',projectName:'',projectDesc:'',targetApp:'',
   activeSection:'mcu',mcuFilter:'All',sensorFilter:'All',mcuSearch:'',sensorSearch:'',
 };
-const CUSTOM={
-  accentColor:'#00ffe1',bg:'#070a0d',surface:'#0c1117',panel:'#101820',card:'#141e28',
-  title:'EMBEDGEN PRO',ver:'PRO',devname:'Ishwar Bagad',
-  footer:'⚡ EMBEDGEN PRO · Developed by Ishwar Bagad · Embedded AI Prompt Builder · v3.0',
-  font:"'Rajdhani',sans-serif",
-};
 
 const SECTIONS=[
-  {id:'mcu',label:'🔧 MCU',icon:''},
-  {id:'perip',label:'⚡ Peripherals',icon:''},
-  {id:'sensors',label:'📡 Sensors',icon:''},
-  {id:'proto',label:'🔌 Protocols',icon:''},
-  {id:'adc',label:'📊 ADC Calc',icon:''},
-  {id:'timer',label:'⏱ Timer',icon:''},
-  {id:'pwm',label:'🌊 PWM',icon:''},
-  {id:'uart',label:'📶 UART',icon:''},
-  {id:'rtos',label:'🛡 RTOS',icon:''},
-  {id:'req',label:'📝 Requirements',icon:''},
+  {id:'mcu',label:'🔧 MCU'},{id:'perip',label:'⚡ Peripherals'},{id:'sensors',label:'📡 Sensors'},
+  {id:'proto',label:'🔌 Protocols'},{id:'adc',label:'📊 ADC Calc'},{id:'timer',label:'⏱ Timer'},
+  {id:'pwm',label:'🌊 PWM'},{id:'uart',label:'📶 UART'},{id:'rtos',label:'🛡 RTOS'},{id:'req',label:'📝 Requirements'},
 ];
 
-// ═══════════════════════════════════════════
-// NAV
-// ═══════════════════════════════════════════
 let navOpen=false;
-function toggleNav(){
-  navOpen=!navOpen;
-  document.getElementById('nav-wrap').classList.toggle('open',navOpen);
-  document.getElementById('hamburger').classList.toggle('open',navOpen);
-}
-function closeNavMobile(){
-  if(window.innerWidth<=600){navOpen=false;document.getElementById('nav-wrap').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}
-}
-function buildNav(){
-  document.getElementById('hnav').innerHTML=SECTIONS.map(s=>
-    `<button class="ntab ${s.id===S.activeSection?'act':''}" onclick="showSection('${s.id}');closeNavMobile()">${s.label}</button>`
-  ).join('');
-}
-function showSection(id){
-  S.activeSection=id;buildNav();
-  const renderers={mcu:renderMCU,perip:renderPerip,sensors:renderSensors,proto:renderProto,adc:renderADC,timer:renderTimer,pwm:renderPWM,uart:renderUART,rtos:renderRTOS,req:renderReq};
-  document.getElementById('section-body').innerHTML='';
-  renderers[id]?.();
-  updateBBSummary();
-}
-
-// ═══════════════════════════════════════════
-// HELPERS
-// ═══════════════════════════════════════════
+function toggleNav(){navOpen=!navOpen;document.getElementById('nav-wrap').classList.toggle('open',navOpen);document.getElementById('hamburger').classList.toggle('open',navOpen);}
+function closeNavMobile(){if(window.innerWidth<=600){navOpen=false;document.getElementById('nav-wrap').classList.remove('open');document.getElementById('hamburger').classList.remove('open');}}
+function buildNav(){document.getElementById('hnav').innerHTML=SECTIONS.map(s=>`<button class="ntab ${s.id===S.activeSection?'act':''}" onclick="showSection('${s.id}');closeNavMobile()">${s.label}</button>`).join('');}
+function showSection(id){S.activeSection=id;buildNav();const r={mcu:renderMCU,perip:renderPerip,sensors:renderSensors,proto:renderProto,adc:renderADC,timer:renderTimer,pwm:renderPWM,uart:renderUART,rtos:renderRTOS,req:renderReq};document.getElementById('section-body').innerHTML='';r[id]?.();updateBBSummary();}
 function toggleArr(arr,val){const i=arr.indexOf(val);i>-1?arr.splice(i,1):arr.push(val)}
-function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
 function sb(){return document.getElementById('section-body')}
-function showToast(msg='✓ PROMPT COPIED!'){
-  const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';
-  setTimeout(()=>t.style.opacity='0',2200);
-}
+function showToast(msg='✓ COPIED!'){const t=document.getElementById('toast');t.textContent=msg;t.style.opacity='1';setTimeout(()=>t.style.opacity='0',2200);}
 
-// ═══════════════════════════════════════════
-// SECTIONS
-// ═══════════════════════════════════════════
+// ═══ MCU SECTION ═══
 function renderMCU(){
-  const fmColors={STM32F0:'badge-stm32',STM32F1:'badge-stm32',STM32F3:'badge-stm32',STM32F4:'badge-stm32',STM32F7:'badge-stm32',STM32H7:'badge-stm32',STM32G4:'badge-stm32',STM32L4:'badge-stm32',STM32WB:'badge-stm32',LPC2xxx:'badge-lpc',LPC17xx:'badge-lpc',LPC55xx:'badge-lpc',PIC16:'badge-pic',PIC18:'badge-pic',PIC32:'badge-pic',AVR:'badge-avr',ESP:'badge-esp',Arduino:'badge-arm',TI:'badge-ti',Nordic:'badge-nrf',Raspberry:'badge-arm',SAM:'badge-arm',Infineon:'badge-arm','RISC-V':'badge-riscv'};
-  const filtered=MCUS.filter(m=>(S.mcuFilter==='All'||m[2].startsWith(S.mcuFilter)||m[2]===S.mcuFilter)&&(!S.mcuSearch||(m[0]+m[1]+m[2]+m[3]+m[7]).toLowerCase().includes(S.mcuSearch.toLowerCase())));
+  const allMCUs=[...MCUS,...S.customMCUs.map(m=>[m.name,m.part,m.family||'Custom',m.core,m.clock,m.flash,m.ram,m.note])];
   sb().innerHTML=`
   <div class="sec-title">🔧 MCU & Platform</div>
-  <div class="sec-sub">Select your microcontroller · ${MCUS.length} MCUs available</div>
-  ${S.mcu?`<div class="mcu-sel-box"><div class="mcu-sel-name">✓ ${S.mcu[0]}</div><div class="mcu-sel-meta">Core: <span>${S.mcu[3]}</span> · Clock: <span>${S.mcu[4]}</span> · Flash: <span>${S.mcu[5]}</span> · RAM: <span>${S.mcu[6]}</span>${S.mcu[7]?` · <span style="color:var(--gold)">${S.mcu[7]}</span>`:''}</div></div>`:''}
+  <div class="sec-sub">Select your microcontroller — ${allMCUs.length} MCUs available</div>
+  ${S.mcu?`<div class="mcu-sel-box"><div class="mcu-sel-name">✓ SELECTED: ${S.mcu[0]}</div><div class="mcu-sel-meta">Core: <span>${S.mcu[3]}</span> · Clock: <span>${S.mcu[4]}</span> · Flash: <span>${S.mcu[5]}</span> · RAM: <span>${S.mcu[6]}</span>${S.mcu[7]?` · <span style="color:var(--gold)">${S.mcu[7]}</span>`:''}</div></div>`:''}
   <div class="card">
-    <div class="card-title">Select Microcontroller</div>
-    <div class="search-wrap"><span class="si">🔍</span><input class="sinp" placeholder="Search MCU name, family, core..." value="${S.mcuSearch}" oninput="S.mcuSearch=this.value;renderMCU()"></div>
-    <div class="filter-row">${MCU_FAMILIES.map(f=>`<span class="ftag ${S.mcuFilter===f?'act':''}" onclick="S.mcuFilter='${f}';renderMCU()">${f}</span>`).join('')}</div>
-    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);margin-bottom:7px">${filtered.length} of ${MCUS.length} shown</div>
-    <div class="mcu-grid">${filtered.map(m=>`<div class="mcu-card ${S.mcu&&S.mcu[0]===m[0]?'sel':''}" onclick="S.mcu=MCUS[${MCUS.indexOf(m)}];if(!S.clock)S.clock=S.mcu[4].replace('MHz','');renderMCU()">
-      <div class="mcu-name">${m[0]}</div>
-      <div class="mcu-meta">Core: <span>${m[3]}</span><br>${m[4]} · ${m[5]} · ${m[6]}${m[7]?`<br><span style="color:var(--gold)">${m[7]}</span>`:''}</div>
-      <span class="mcu-badge ${fmColors[m[2]]||'badge-arm'}">${m[2]}</span>
-    </div>`).join('')}</div>
+    <div class="card-title">Search & Select MCU</div>
+    <div class="search-wrap"><span class="si">🔍</span><input class="sinp" id="mcu-search-inp" placeholder="Search: STM32F407, ESP32, AVR, Cortex-M4..." oninput="updateMCUGrid()"></div>
+    <div class="filter-row">${MCU_FAMILIES.map(f=>`<span class="ftag ${S.mcuFilter===f?'act':''}" onclick="S.mcuFilter='${f}';updateMCUGrid()">${f}</span>`).join('')}</div>
+    <div id="mcu-grid-count" style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);margin-bottom:7px"></div>
+    <div class="mcu-grid" id="mcu-grid-body"></div>
   </div>
   <div class="card">
-    <div class="card-title">Framework / HAL</div>
-    <div class="chips">${FRAMEWORKS.map(f=>`<span class="chip ${S.framework===f?'sc':''}" onclick="S.framework='${f}';renderMCU()">${f}</span>`).join('')}</div>
-  </div>
-  <div class="card">
-    <div class="card-title">Project Settings</div>
+    <div class="card-title">➕ Add Custom MCU</div>
     <div class="calc-row">
-      <div class="inp-grp"><label>Project Name</label><input value="${S.projectName}" oninput="S.projectName=this.value" placeholder="MyProject"></div>
+      <div class="inp-grp"><label>MCU Name *</label><input id="cm-name" placeholder="e.g. STM32F105RC"></div>
+      <div class="inp-grp"><label>Part Number</label><input id="cm-part" placeholder="e.g. STM32F105RCT6"></div>
+    </div>
+    <div class="calc-row">
+      <div class="inp-grp"><label>Core / Architecture</label><input id="cm-core" placeholder="e.g. Cortex-M3"></div>
+      <div class="inp-grp"><label>Max Clock</label><input id="cm-clock" placeholder="e.g. 72MHz"></div>
+    </div>
+    <div class="calc-row">
+      <div class="inp-grp"><label>Flash</label><input id="cm-flash" placeholder="e.g. 256KB"></div>
+      <div class="inp-grp"><label>RAM</label><input id="cm-ram" placeholder="e.g. 64KB"></div>
+    </div>
+    <div class="inp-grp"><label>Note / Special Features</label><input id="cm-note" placeholder="e.g. USB, CAN, DAC"></div>
+    <button class="btn-add" onclick="addCustomMCU()">+ ADD CUSTOM MCU</button>
+    ${S.customMCUs.length?`<div class="sel-list" style="margin-top:8px">${S.customMCUs.map((m,i)=>`<span class="sel-tag" style="border-color:var(--accent)">${m.name}<button onclick="S.customMCUs.splice(${i},1);if(S.mcu&&S.mcu[0]===S.customMCUs[${i}]?.name)S.mcu=null;renderMCU()">✕</button></span>`).join('')}</div>`:''}
+  </div>
+  <div class="card">
+    <div class="card-title">Framework & Code Settings</div>
+    <div class="card-title" style="margin-bottom:6px;margin-top:0">Development Framework</div>
+    <div class="chips" style="margin-bottom:12px">${FRAMEWORKS.map(f=>`<span class="chip ${S.framework===f?'sc':''}" onclick="S.framework='${f}';renderMCU()">${f}</span>`).join('')}</div>
+    <div class="calc-row">
+      <div class="inp-grp"><label>Project Name</label><input value="${S.projectName}" oninput="S.projectName=this.value" placeholder="MyFirmwareProject"></div>
       <div class="inp-grp"><label>Target Application</label><input value="${S.targetApp}" oninput="S.targetApp=this.value" placeholder="Motor Control, IoT..."></div>
     </div>
     <div class="calc-row">
-      <div class="inp-grp"><label>Clock (MHz)</label><input type="number" value="${S.clock}" oninput="S.clock=this.value" placeholder="${S.mcu?S.mcu[4]:'Auto'}"></div>
+      <div class="inp-grp"><label>Clock (MHz)</label><input type="number" value="${S.clock}" oninput="S.clock=this.value" placeholder="${S.mcu?S.mcu[4]:'e.g. 168'}"></div>
       <div class="inp-grp"><label>Supply Voltage</label><select onchange="S.voltage=this.value">${['1.8V','2.5V','3.0V','3.3V','5.0V'].map(v=>`<option ${S.voltage===v?'selected':''}>${v}</option>`).join('')}</select></div>
     </div>
     <div class="calc-row">
@@ -588,14 +551,54 @@ function renderMCU(){
       <div class="inp-grp"><label>Code Style</label><select onchange="S.codeStyle=this.value">${CODESTYLES.map(l=>`<option ${S.codeStyle===l?'selected':''}>${l}</option>`).join('')}</select></div>
     </div>
   </div>`;
+  updateMCUGrid();
   updateBBSummary();
 }
 
+function updateMCUGrid(){
+  const inp=document.getElementById('mcu-search-inp');
+  const q=inp?inp.value.trim().toLowerCase():'';
+  const cursor=inp?inp.selectionStart:0;
+  const allMCUs=[...MCUS,...S.customMCUs.map(m=>[m.name,m.part||'',m.family||'Custom',m.core||'',m.clock||'',m.flash||'',m.ram||'',m.note||''])];
+  const filtered=allMCUs.filter(m=>{
+    const fam=S.mcuFilter==='All'||(S.mcuFilter==='Custom'?m[2]==='Custom':m[2].startsWith(S.mcuFilter)||m[2]===S.mcuFilter);
+    if(!fam)return false;
+    if(!q)return true;
+    const words=q.split(/\s+/).filter(Boolean);
+    const haystack=(m[0]+' '+m[1]+' '+m[2]+' '+m[3]+' '+m[7]).toLowerCase();
+    return words.every(w=>haystack.includes(w));
+  });
+  const gc=document.getElementById('mcu-grid-count');
+  const gb=document.getElementById('mcu-grid-body');
+  if(gc)gc.textContent=filtered.length+' of '+allMCUs.length+' shown';
+  if(gb)gb.innerHTML=filtered.map((m,i)=>`<div class="mcu-card ${S.mcu&&S.mcu[0]===m[0]?'sel':''}" onclick="selectMCU(${allMCUs.indexOf(m)})">
+    <div class="mcu-name">${m[0]}</div>
+    <div class="mcu-meta">Core: <span>${m[3]}</span><br>${m[4]} · ${m[5]} · ${m[6]}${m[7]?`<br><span style="color:var(--gold);font-size:9px">${m[7]}</span>`:''}</div>
+    <span class="mcu-badge ${FM_COLORS[m[2]]||'badge-arm'}">${m[2]}</span>
+  </div>`).join('');
+  if(inp){inp.focus();try{inp.setSelectionRange(cursor,cursor);}catch(e){}}
+}
+
+function selectMCU(idx){
+  const allMCUs=[...MCUS,...S.customMCUs.map(m=>[m.name,m.part||'',m.family||'Custom',m.core||'',m.clock||'',m.flash||'',m.ram||'',m.note||''])];
+  S.mcu=allMCUs[idx];
+  if(!S.clock)S.clock=S.mcu[4].replace('MHz','');
+  renderMCU();
+}
+
+function addCustomMCU(){
+  const n=document.getElementById('cm-name')?.value.trim();
+  if(!n){showToast('⚠ MCU name required!');return;}
+  S.customMCUs.push({name:n,part:document.getElementById('cm-part')?.value.trim()||n,family:'Custom',core:document.getElementById('cm-core')?.value.trim()||'Custom',clock:document.getElementById('cm-clock')?.value.trim()||'?MHz',flash:document.getElementById('cm-flash')?.value.trim()||'?KB',ram:document.getElementById('cm-ram')?.value.trim()||'?KB',note:document.getElementById('cm-note')?.value.trim()||''});
+  renderMCU();showToast('✓ Custom MCU Added!');
+}
+
+// ═══ PERIPHERALS ═══
 function renderPerip(){
   const pc=S.peripherals.filter(p=>!p.startsWith('RTOS:')&&!p.startsWith('DBG:'));
   sb().innerHTML=`
-  <div class="sec-title">⚡ Peripherals</div>
-  <div class="sec-sub">Select MCU peripherals and code output types</div>
+  <div class="sec-title">⚡ Peripherals & Output</div>
+  <div class="sec-sub">Select MCU peripherals, code output type and quality settings</div>
   <div class="card">
     <div class="card-title">MCU Peripherals <span class="count-badge">${pc.length}</span></div>
     <div class="chips">${PERIPHERALS.map(p=>`<span class="chip ${pc.includes(p)?'sc':''}" onclick="toggleArr(S.peripherals,'${p}');renderPerip()">${p}</span>`).join('')}</div>
@@ -610,81 +613,123 @@ function renderPerip(){
   <div class="card">
     <div class="card-title">Code Quality Options</div>
     <div style="display:flex;flex-direction:column;gap:10px">
-      ${[['includeComments','Inline code comments on every block'],['includeHeaders','Auto-add required #includes'],['addExamples','Add usage example in comments'],['addFormulas','Show math formulas as comments']].map(([k,l])=>`<div class="toggle" onclick="S['${k}']=!S['${k}'];renderPerip()"><div class="tgl-sw ${S[k]?'on':''}"></div><span class="tgl-label">${l}</span></div>`).join('')}
+      ${[['includeComments','Detailed inline comments on every block'],['includeHeaders','Auto-add all required #include headers'],['addExamples','Add usage example in comment block'],['addFormulas','Show math formulas as inline comments'],['addMISRA','Follow MISRA-C coding guidelines']].map(([k,l])=>`<div class="toggle" onclick="S['${k}']=!S['${k}'];renderPerip()"><div class="tgl-sw ${S[k]?'on':''}"></div><span class="tgl-label">${l}</span></div>`).join('')}
     </div>
   </div>`;
   updateBBSummary();
 }
 
+// ═══ SENSORS ═══
 function renderSensors(){
-  const filtered=SENSORS.filter(s=>(S.sensorFilter==='All'||s[1].includes(S.sensorFilter)||s[1]===S.sensorFilter)&&(!S.sensorSearch||(s[0]+s[1]+s[2]).toLowerCase().includes(S.sensorSearch.toLowerCase())));
   const allSel=[...S.sensors,...S.customSensors];
   sb().innerHTML=`
   <div class="sec-title">📡 Sensors & Modules</div>
-  <div class="sec-sub">${SENSORS.length} sensors · ${allSel.length} selected</div>
+  <div class="sec-sub">${SENSORS.length} industrial sensors · ${allSel.length} selected</div>
   <div class="card">
     <div class="card-title">Sensor Database</div>
-    <div class="search-wrap"><span class="si">🔍</span><input class="sinp" placeholder="Search sensor, type, interface..." value="${S.sensorSearch}" oninput="S.sensorSearch=this.value;renderSensors()"></div>
-    <div class="filter-row">${SENSOR_TYPES.map(t=>`<span class="ftag ${S.sensorFilter===t?'act':''}" onclick="S.sensorFilter='${t}';renderSensors()">${t}</span>`).join('')}</div>
-    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);margin-bottom:7px">Showing ${filtered.length}</div>
-    <div class="sensor-grid">${filtered.map(s=>`<div class="sensor-card ${S.sensors.includes(s[0])?'sel':''}" onclick="toggleArr(S.sensors,'${s[0]}');renderSensors()">
-      <div class="sensor-name">${s[0]}</div>
-      <div class="sensor-type">${s[1]}</div>
-      <div class="sensor-iface">${s[2]}</div>
-    </div>`).join('')}</div>
+    <div class="search-wrap"><span class="si">🔍</span><input class="sinp" id="sensor-search-inp" placeholder="Search sensor name, type, interface..." oninput="updateSensorGrid()"></div>
+    <div class="filter-row">${SENSOR_TYPES.map(t=>`<span class="ftag ${S.sensorFilter===t?'act':''}" onclick="S.sensorFilter='${t}';updateSensorGrid()">${t}</span>`).join('')}</div>
+    <div id="sensor-grid-count" style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);margin-bottom:7px"></div>
+    <div class="sensor-grid" id="sensor-grid-body"></div>
   </div>
   <div class="card">
-    <div class="card-title">Add Custom Sensor / Module</div>
+    <div class="card-title">➕ Add Custom Sensor / Module</div>
     <div class="custom-add-row">
-      <input id="cus-name" placeholder="Sensor / module name">
-      <input id="cus-iface" placeholder="Interface" style="width:90px;flex:none">
+      <input id="cus-name" placeholder="Sensor or module name">
+      <input id="cus-type" placeholder="Type (e.g. Temp)" style="max-width:120px">
+      <input id="cus-iface" placeholder="Interface" style="max-width:100px">
       <button class="btn-add" onclick="addCustomSensor()">+ ADD</button>
     </div>
-    ${S.customSensors.length?`<div class="sel-list" style="margin-top:8px">${S.customSensors.map(s=>`<span class="sel-tag" style="border-color:var(--gold)">${s}<button onclick="S.customSensors.splice(S.customSensors.indexOf('${s}'),1);renderSensors()">✕</button></span>`).join('')}</div>`:''}
+    ${S.customSensors.length?`<div class="sel-list" style="margin-top:8px">${S.customSensors.map(s=>`<span class="sel-tag" style="border-color:var(--gold)">${s}<button onclick="S.customSensors.splice(S.customSensors.indexOf('${s.replace(/'/g,"\\'")}'),1);renderSensors()">✕</button></span>`).join('')}</div>`:''}
   </div>
   <div class="card">
     <div class="card-title">Selected Sensors <span class="count-badge">${allSel.length}</span></div>
-    <div class="sel-list">${allSel.length?allSel.map(s=>`<span class="sel-tag" style="border-color:var(--gold)">${s}<button onclick="removeSensor('${s}')">✕</button></span>`).join(''):'<span style="color:var(--dim);font-size:10px">None selected</span>'}</div>
+    <div class="sel-list">${allSel.length?allSel.map(s=>`<span class="sel-tag" style="border-color:var(--gold)">${s}<button onclick="removeSensor('${s.replace(/'/g,"\\'")}')">✕</button></span>`).join(''):'<span style="color:var(--dim);font-size:10px">None selected</span>'}</div>
   </div>`;
+  updateSensorGrid();
   updateBBSummary();
 }
-function addCustomSensor(){const n=document.getElementById('cus-name')?.value.trim(),i=document.getElementById('cus-iface')?.value.trim();if(!n)return;S.customSensors.push(n+(i?` (${i})`:''));renderSensors();}
+
+function updateSensorGrid(){
+  const inp=document.getElementById('sensor-search-inp');
+  const q=inp?inp.value.trim().toLowerCase():'';
+  const cursor=inp?inp.selectionStart:0;
+  const filtered=SENSORS.filter(s=>{
+    const typeMatch=S.sensorFilter==='All'||s[1].toLowerCase().includes(S.sensorFilter.toLowerCase());
+    if(!typeMatch)return false;
+    if(!q)return true;
+    const words=q.split(/\s+/).filter(Boolean);
+    const hay=(s[0]+' '+s[1]+' '+s[2]).toLowerCase();
+    return words.every(w=>hay.includes(w));
+  });
+  const gc=document.getElementById('sensor-grid-count');
+  const gb=document.getElementById('sensor-grid-body');
+  if(gc)gc.textContent='Showing '+filtered.length+' sensors';
+  if(gb)gb.innerHTML=filtered.map(s=>`<div class="sensor-card ${S.sensors.includes(s[0])?'sel':''}" onclick="toggleArr(S.sensors,'${s[0]}');updateSensorGrid();updateSelSensors()">
+    <div class="sensor-name">${s[0]}</div>
+    <div class="sensor-type">${s[1]}</div>
+    <div class="sensor-iface">${s[2]}</div>
+  </div>`).join('');
+  if(inp){inp.focus();try{inp.setSelectionRange(cursor,cursor);}catch(e){}}
+}
+
+function updateSelSensors(){
+  const allSel=[...S.sensors,...S.customSensors];
+  const badge=document.querySelector('.count-badge');
+  const sl=document.querySelectorAll('.sel-list');
+  if(sl[1])sl[1].innerHTML=allSel.length?allSel.map(s=>`<span class="sel-tag" style="border-color:var(--gold)">${s}<button onclick="removeSensor('${s.replace(/'/g,"\\'")}')">✕</button></span>`).join(''):'<span style="color:var(--dim);font-size:10px">None selected</span>';
+  updateBBSummary();
+}
+
+function addCustomSensor(){const n=document.getElementById('cus-name')?.value.trim(),t=document.getElementById('cus-type')?.value.trim(),i=document.getElementById('cus-iface')?.value.trim();if(!n)return;const label=n+(t?` [${t}]`:''+(i?` (${i})`:''));S.customSensors.push(label);renderSensors();}
 function removeSensor(s){const i=S.sensors.indexOf(s);if(i>-1)S.sensors.splice(i,1);const j=S.customSensors.indexOf(s);if(j>-1)S.customSensors.splice(j,1);renderSensors();}
 
+// ═══ PROTOCOLS ═══
 function renderProto(){
   sb().innerHTML=`
   <div class="sec-title">🔌 Communication Protocols</div>
-  <div class="sec-sub">Select all interfaces for your project</div>
+  <div class="sec-sub">Select all interfaces your project uses</div>
   <div class="card">
-    <div class="card-title">Protocols <span class="count-badge">${S.protocols.length}</span></div>
+    <div class="card-title">Standard Protocols <span class="count-badge">${S.protocols.length}</span></div>
     <div class="chips">${PROTOCOLS.map(p=>`<span class="chip ${S.protocols.includes(p)?'sc':''}" onclick="toggleArr(S.protocols,'${p}');renderProto()">${p}</span>`).join('')}</div>
     <div class="divider"></div>
     <div class="sel-list">${S.protocols.length?S.protocols.map(p=>`<span class="sel-tag">${p}<button onclick="toggleArr(S.protocols,'${p}');renderProto()">✕</button></span>`).join(''):'<span style="color:var(--dim);font-size:10px">None selected</span>'}</div>
   </div>
   <div class="card">
-    <div class="card-title">Protocol Reference</div>
+    <div class="card-title">➕ Add Custom Protocol / Interface</div>
+    <div class="custom-add-row">
+      <input id="cp-name" placeholder="Protocol name (e.g. EtherCAT, ProfiNET)">
+      <input id="cp-note" placeholder="Note (optional)" style="max-width:160px">
+      <button class="btn-add" onclick="addCustomProtocol()">+ ADD</button>
+    </div>
+    ${S.customProtocols.length?`<div class="sel-list" style="margin-top:8px">${S.customProtocols.map((p,i)=>`<span class="sel-tag" style="border-color:var(--purple)">${p}<button onclick="S.customProtocols.splice(${i},1);renderProto()">✕</button></span>`).join('')}</div>`:''}
+  </div>
+  <div class="card">
+    <div class="card-title">Protocol Quick Reference</div>
     <div class="ref-box">
-      <b>UART</b> — Async, 2-wire TX/RX, up to 921600 baud<br>
-      <b>SPI</b> — Sync 4-wire, fast full-duplex<br>
-      <b>I2C</b> — 2-wire multi-device, 100k/400k/1MHz<br>
-      <b>CAN 2.0B</b> — Differential bus, 1Mbps, ISO 11898<br>
-      <b>FDCAN</b> — CAN FD up to 8Mbps data phase<br>
-      <b>RS-485</b> — Differential half-duplex, 1.2km<br>
-      <b>MQTT</b> — Pub/sub IoT protocol, port 1883<br>
-      <b>1-Wire</b> — Single wire + GND, parasite power<br>
-      <b>USB CDC</b> — Virtual serial port over USB
+      <b>UART</b> — Async, TX/RX, configurable baud, no clock line<br>
+      <b>SPI</b> — Sync 4-wire (MOSI/MISO/SCK/CS), full-duplex, fast<br>
+      <b>I2C</b> — 2-wire multi-device (SDA/SCL), 100k/400k/1MHz<br>
+      <b>CAN 2.0B</b> — Differential bus, 1Mbps, ISO 11898, industrial standard<br>
+      <b>FDCAN</b> — CAN FD up to 8Mbps data phase, ISO 11898-1:2015<br>
+      <b>RS-485 Modbus</b> — Differential half-duplex, 1.2km range, industrial<br>
+      <b>MQTT</b> — Lightweight pub/sub IoT protocol, TCP port 1883<br>
+      <b>1-Wire</b> — Single wire + GND, parasite power mode<br>
+      <b>USB CDC</b> — Virtual serial port over USB, no driver needed<br>
+      <b>LoRa</b> — Long range, low power, 868/915MHz ISM band
     </div>
   </div>`;
   updateBBSummary();
 }
+function addCustomProtocol(){const n=document.getElementById('cp-name')?.value.trim(),note=document.getElementById('cp-note')?.value.trim();if(!n)return;S.customProtocols.push(n+(note?` (${note})`:''));renderProto();}
 
+// ═══ ADC CALC ═══
 function renderADC(){
-  const clk=parseFloat(S.clock)||168;
   sb().innerHTML=`
   <div class="sec-title">📊 ADC Calculator</div>
-  <div class="sec-sub">Resolution, voltage and oversampling calculations</div>
+  <div class="sec-sub">Resolution, voltage, SNR and oversampling calculations</div>
   <div class="card">
-    <div class="card-title">ADC Config</div>
+    <div class="card-title">ADC Configuration</div>
     <div class="calc-row">
       <div class="inp-grp"><label>Resolution (Bits)</label><select id="adc-bits" onchange="calcADC()">${[6,8,10,12,14,16,18,24].map(b=>`<option value="${b}" ${b===12?'selected':''}>${b}-bit</option>`).join('')}</select></div>
       <div class="inp-grp"><label>Reference Voltage</label><select id="adc-vref" onchange="calcADC()">${[1.8,2.5,3.0,3.3,4.096,5.0].map(v=>`<option value="${v}" ${v===3.3?'selected':''}>${v}V</option>`).join('')}</select></div>
@@ -701,13 +746,13 @@ function renderADC(){
       <div class="result-row"><span class="rlabel">% of Full Scale</span><span class="rvalue" id="ar-pct">-</span></div>
       <div class="result-row"><span class="rlabel">Theoretical SNR</span><span class="rvalue" id="ar-snr">-</span></div>
     </div>
-    <div class="formula-box"><span class="eq">Voltage = (ADC_Value / (2ⁿ−1)) × Vref</span><br><span class="eq">SNR = 6.02×n + 1.76 dB</span></div>
+    <div class="formula-box"><span class="eq">Voltage = (ADC_Raw / (2ⁿ−1)) × Vref</span><br><span class="eq">SNR = 6.02×n + 1.76 dB</span></div>
   </div>
   <div class="card">
-    <div class="card-title">Oversampling</div>
+    <div class="card-title">Oversampling Calculator</div>
     <div class="calc-row">
       <div class="inp-grp"><label>Base Resolution</label><select id="os-base">${[8,10,12].map(b=>`<option value="${b}" ${b===12?'selected':''}>${b}-bit</option>`).join('')}</select></div>
-      <div class="inp-grp"><label>Ratio</label><select id="os-ratio" onchange="calcOS()">${[4,16,64,256].map(r=>`<option value="${r}">×${r}</option>`).join('')}</select></div>
+      <div class="inp-grp"><label>Oversampling Ratio</label><select id="os-ratio" onchange="calcOS()">${[4,16,64,256].map(r=>`<option value="${r}">×${r}</option>`).join('')}</select></div>
     </div>
     <button class="btn-calc" onclick="calcOS()">CALCULATE EFFECTIVE BITS</button>
     <div class="calc-result">
@@ -717,27 +762,24 @@ function renderADC(){
   </div>`;
   setTimeout(calcADC,80);
 }
-function calcADC(){
-  const bits=parseInt(document.getElementById('adc-bits')?.value||12),vref=parseFloat(document.getElementById('adc-vref')?.value||3.3),raw=parseInt(document.getElementById('adc-raw')?.value||0);
-  const steps=Math.pow(2,bits)-1,volt=raw/steps*vref;
-  if(document.getElementById('ar-voltage')){document.getElementById('ar-voltage').textContent=volt.toFixed(4)+' V';document.getElementById('ar-sens').textContent=(vref/steps*1000).toFixed(4)+' mV';document.getElementById('ar-qerr').textContent='±'+(vref/(2*steps)*1000).toFixed(4)+' mV';document.getElementById('ar-pct').textContent=(raw/steps*100).toFixed(2)+'%';document.getElementById('ar-snr').textContent=(6.02*bits+1.76).toFixed(2)+' dB';}
-}
+function calcADC(){const bits=parseInt(document.getElementById('adc-bits')?.value||12),vref=parseFloat(document.getElementById('adc-vref')?.value||3.3),raw=parseInt(document.getElementById('adc-raw')?.value||0);const steps=Math.pow(2,bits)-1,volt=raw/steps*vref;if(document.getElementById('ar-voltage')){document.getElementById('ar-voltage').textContent=volt.toFixed(4)+' V';document.getElementById('ar-sens').textContent=(vref/steps*1000).toFixed(4)+' mV';document.getElementById('ar-qerr').textContent='±'+(vref/(2*steps)*1000).toFixed(4)+' mV';document.getElementById('ar-pct').textContent=(raw/steps*100).toFixed(2)+'%';document.getElementById('ar-snr').textContent=(6.02*bits+1.76).toFixed(2)+' dB';}}
 function calcADCfromV(){const bits=parseInt(document.getElementById('adc-bits')?.value||12),vref=parseFloat(document.getElementById('adc-vref')?.value||3.3),v=parseFloat(document.getElementById('adc-volt')?.value||0);if(document.getElementById('adc-raw'))document.getElementById('adc-raw').value=Math.min(Math.round(v/vref*(Math.pow(2,bits)-1)),Math.pow(2,bits)-1);calcADC();}
-function calcOS(){const base=parseInt(document.getElementById('os-base')?.value||12),ratio=parseInt(document.getElementById('os-ratio')?.value||16),extra=Math.log2(ratio)/2;if(document.getElementById('os-bits')){document.getElementById('os-bits').textContent=(base+extra).toFixed(1)+' bits';document.getElementById('os-samp').textContent=ratio+' samples (>> '+extra.toFixed(0)+' bits)';}}
+function calcOS(){const base=parseInt(document.getElementById('os-base')?.value||12),ratio=parseInt(document.getElementById('os-ratio')?.value||16),extra=Math.log2(ratio)/2;if(document.getElementById('os-bits')){document.getElementById('os-bits').textContent=(base+extra).toFixed(1)+' bits';document.getElementById('os-samp').textContent=ratio+' samples (gain: '+extra.toFixed(0)+' extra bits)';}}
 
+// ═══ TIMER ═══
 function renderTimer(){
   const clk=parseFloat(S.clock)||168;
   sb().innerHTML=`
   <div class="sec-title">⏱ Timer Calculator</div>
-  <div class="sec-sub">Calculate PSC and ARR register values</div>
+  <div class="sec-sub">Calculate exact PSC and ARR register values</div>
   <div class="card">
-    <div class="card-title">Configuration</div>
+    <div class="card-title">Timer Configuration</div>
     <div class="calc-row">
       <div class="inp-grp"><label>MCU Clock (MHz)</label><input type="number" id="t-clk" value="${clk}"></div>
       <div class="inp-grp"><label>APB Prescaler</label><select id="t-apb">${[1,2,4].map(v=>`<option value="${v}" ${v===1?'selected':''}>÷${v}</option>`).join('')}</select></div>
     </div>
     <div class="calc-row">
-      <div class="inp-grp"><label>Unit</label><select id="t-unit"><option value="ms" selected>ms</option><option value="us">µs</option><option value="s">s</option><option value="hz">Hz</option><option value="khz">kHz</option></select></div>
+      <div class="inp-grp"><label>Target Unit</label><select id="t-unit"><option value="ms" selected>ms</option><option value="us">µs</option><option value="s">s</option><option value="hz">Hz</option><option value="khz">kHz</option></select></div>
       <div class="inp-grp"><label>Target Value</label><input type="number" id="t-val" value="100" step="any"></div>
     </div>
     <button class="btn-calc" onclick="calcTimer()">⚡ CALCULATE PSC + ARR</button>
@@ -746,29 +788,22 @@ function renderTimer(){
       <div class="result-row"><span class="rlabel">Auto-Reload (ARR)</span><span class="rvalue ok" id="tr-arr">-</span></div>
       <div class="result-row"><span class="rlabel">Actual Period</span><span class="rvalue" id="tr-period">-</span></div>
       <div class="result-row"><span class="rlabel">Actual Frequency</span><span class="rvalue" id="tr-freq">-</span></div>
-      <div class="result-row"><span class="rlabel">Error</span><span class="rvalue" id="tr-err">-</span></div>
+      <div class="result-row"><span class="rlabel">Error %</span><span class="rvalue" id="tr-err">-</span></div>
     </div>
-    <div class="formula-box"><span class="eq">Period = (PSC+1)×(ARR+1) / TIM_CLK</span><br><span class="eq">HAL: htim.Init.Prescaler=PSC; htim.Init.Period=ARR;</span></div>
+    <div class="formula-box"><span class="eq">Period = (PSC+1) × (ARR+1) / TIM_CLK</span><br><span class="eq">HAL: htim.Init.Prescaler = PSC; htim.Init.Period = ARR;</span></div>
   </div>`;
   setTimeout(calcTimer,80);
 }
-function calcTimer(){
-  const clkMhz=parseFloat(document.getElementById('t-clk')?.value||168),apb=parseInt(document.getElementById('t-apb')?.value||1),unit=document.getElementById('t-unit')?.value||'ms',val=parseFloat(document.getElementById('t-val')?.value||100);
-  const timClk=(apb===1?clkMhz:clkMhz/apb*2)*1e6;
-  let targetP=unit==='s'?val:unit==='ms'?val/1e3:unit==='us'?val/1e6:unit==='hz'?1/val:1/(val*1e3);
-  const totalTicks=timClk*targetP;let bestPsc=0,bestArr=0,bestErr=Infinity;
-  for(let psc=0;psc<=65535;psc++){const arr=Math.round(totalTicks/(psc+1))-1;if(arr<0||arr>65535)continue;const err=Math.abs((psc+1)*(arr+1)/timClk-targetP)/targetP*100;if(err<bestErr){bestErr=err;bestPsc=psc;bestArr=arr}if(err<0.001)break;}
-  const actualP=(bestPsc+1)*(bestArr+1)/timClk,actualF=1/actualP;
-  if(document.getElementById('tr-psc')){document.getElementById('tr-psc').textContent=bestPsc+' (0x'+bestPsc.toString(16).toUpperCase()+')';document.getElementById('tr-arr').textContent=bestArr+' (0x'+bestArr.toString(16).toUpperCase()+')';document.getElementById('tr-period').textContent=actualP>=1?actualP.toFixed(4)+'s':actualP>=0.001?(actualP*1e3).toFixed(4)+'ms':(actualP*1e6).toFixed(4)+'µs';document.getElementById('tr-freq').textContent=actualF>=1e6?(actualF/1e6).toFixed(3)+'MHz':actualF>=1e3?(actualF/1e3).toFixed(3)+'kHz':actualF.toFixed(3)+'Hz';document.getElementById('tr-err').textContent=bestErr.toFixed(6)+'%';document.getElementById('tr-err').className='rvalue '+(bestErr<0.01?'ok':bestErr<1?'warn':'');}
-}
+function calcTimer(){const clkMhz=parseFloat(document.getElementById('t-clk')?.value||168),apb=parseInt(document.getElementById('t-apb')?.value||1),unit=document.getElementById('t-unit')?.value||'ms',val=parseFloat(document.getElementById('t-val')?.value||100);const timClk=(apb===1?clkMhz:clkMhz/apb*2)*1e6;let targetP=unit==='s'?val:unit==='ms'?val/1e3:unit==='us'?val/1e6:unit==='hz'?1/val:1/(val*1e3);const totalTicks=timClk*targetP;let bestPsc=0,bestArr=0,bestErr=Infinity;for(let psc=0;psc<=65535;psc++){const arr=Math.round(totalTicks/(psc+1))-1;if(arr<0||arr>65535)continue;const err=Math.abs((psc+1)*(arr+1)/timClk-targetP)/targetP*100;if(err<bestErr){bestErr=err;bestPsc=psc;bestArr=arr}if(err<0.001)break;}const actualP=(bestPsc+1)*(bestArr+1)/timClk,actualF=1/actualP;if(document.getElementById('tr-psc')){document.getElementById('tr-psc').textContent=bestPsc+' (0x'+bestPsc.toString(16).toUpperCase()+')';document.getElementById('tr-arr').textContent=bestArr+' (0x'+bestArr.toString(16).toUpperCase()+')';document.getElementById('tr-period').textContent=actualP>=1?actualP.toFixed(4)+'s':actualP>=0.001?(actualP*1e3).toFixed(4)+'ms':(actualP*1e6).toFixed(4)+'µs';document.getElementById('tr-freq').textContent=actualF>=1e6?(actualF/1e6).toFixed(3)+'MHz':actualF>=1e3?(actualF/1e3).toFixed(3)+'kHz':actualF.toFixed(3)+'Hz';document.getElementById('tr-err').textContent=bestErr.toFixed(6)+'%';document.getElementById('tr-err').className='rvalue '+(bestErr<0.01?'ok':bestErr<1?'warn':'');}}
 
+// ═══ PWM ═══
 function renderPWM(){
   const clk=parseFloat(S.clock)||168;
   sb().innerHTML=`
   <div class="sec-title">🌊 PWM Calculator</div>
   <div class="sec-sub">PSC, ARR and CCR register calculator</div>
   <div class="card">
-    <div class="card-title">PWM Config</div>
+    <div class="card-title">PWM Configuration</div>
     <div class="calc-row">
       <div class="inp-grp"><label>MCU Clock (MHz)</label><input type="number" id="p-clk" value="${clk}"></div>
       <div class="inp-grp"><label>PWM Frequency (Hz)</label><input type="number" id="p-freq" value="1000"></div>
@@ -779,39 +814,34 @@ function renderPWM(){
     <div id="pwm-vis" class="pwm-vis"></div>
     <button class="btn-calc" onclick="calcPWM()" style="margin-top:8px">⚡ CALCULATE</button>
     <div class="calc-result">
-      <div class="result-row"><span class="rlabel">PSC</span><span class="rvalue ok" id="pr-psc">-</span></div>
-      <div class="result-row"><span class="rlabel">ARR</span><span class="rvalue ok" id="pr-arr">-</span></div>
-      <div class="result-row"><span class="rlabel">CCR (Compare)</span><span class="rvalue" id="pr-ccr">-</span></div>
+      <div class="result-row"><span class="rlabel">Prescaler (PSC)</span><span class="rvalue ok" id="pr-psc">-</span></div>
+      <div class="result-row"><span class="rlabel">Auto-Reload (ARR)</span><span class="rvalue ok" id="pr-arr">-</span></div>
+      <div class="result-row"><span class="rlabel">CCR (Compare Value)</span><span class="rvalue" id="pr-ccr">-</span></div>
       <div class="result-row"><span class="rlabel">Actual Frequency</span><span class="rvalue" id="pr-freq">-</span></div>
-      <div class="result-row"><span class="rlabel">On Time</span><span class="rvalue" id="pr-on">-</span></div>
+      <div class="result-row"><span class="rlabel">ON Time</span><span class="rvalue" id="pr-on">-</span></div>
       <div class="result-row"><span class="rlabel">Resolution</span><span class="rvalue" id="pr-res">-</span></div>
     </div>
-    <div class="formula-box"><span class="eq">CCR = (Duty/100) × (ARR+1)</span><br><span class="eq">__HAL_TIM_SET_COMPARE(&htim, CH, CCR);</span></div>
+    <div class="formula-box"><span class="eq">CCR = (Duty% / 100) × (ARR+1)</span><br><span class="eq">__HAL_TIM_SET_COMPARE(&htim, TIM_CHANNEL_x, CCR);</span></div>
   </div>
   <div class="card">
-    <div class="card-title">Quick Presets</div>
-    <div class="chips">${[[25000,'PC Fan'],[20000,'BLDC'],[10000,'DC Motor'],[1000,'LED/Servo'],[50,'RC Servo'],[200,'LED Dim']].map(([f,l])=>`<span class="chip" onclick="document.getElementById('p-freq').value=${f};calcPWM()"><b style="color:var(--accent2)">${f}Hz</b> ${l}</span>`).join('')}</div>
+    <div class="card-title">Industrial Presets</div>
+    <div class="chips">${[[25000,'PC Fan'],[20000,'BLDC Motor'],[10000,'DC Motor'],[1000,'LED/Servo'],[50,'RC Servo'],[200,'LED Dimming'],[100000,'Inverter'],[500,'Heater SSR']].map(([f,l])=>`<span class="chip" onclick="document.getElementById('p-freq').value=${f};calcPWM()"><b style="color:var(--accent2)">${f}Hz</b> ${l}</span>`).join('')}</div>
   </div>`;
   setTimeout(calcPWM,80);
 }
-function calcPWM(){
-  const clk=parseFloat(document.getElementById('p-clk')?.value||168)*1e6,freq=parseFloat(document.getElementById('p-freq')?.value||1000),dc=parseFloat(document.getElementById('p-dc')?.value||50);
-  let bestPsc=0,bestArr=0,bestErr=Infinity;
-  for(let arr=65535;arr>=99;arr-=Math.max(1,Math.floor(arr/50))){const psc=Math.round(clk/freq/(arr+1))-1;if(psc<0||psc>65535)continue;const err=Math.abs(clk/((psc+1)*(arr+1))-freq)/freq*100;if(err<bestErr){bestErr=err;bestPsc=psc;bestArr=arr}if(err<0.01)break;}
-  const actualFreq=clk/((bestPsc+1)*(bestArr+1)),ccr=Math.round(dc/100*(bestArr+1)),onT=ccr*(bestPsc+1)/clk*1000;
-  if(document.getElementById('pr-psc')){document.getElementById('pr-psc').textContent=bestPsc;document.getElementById('pr-arr').textContent=bestArr;document.getElementById('pr-ccr').textContent=ccr+' ('+dc+'%)';document.getElementById('pr-freq').textContent=actualFreq>=1e3?(actualFreq/1e3).toFixed(3)+'kHz':actualFreq.toFixed(2)+'Hz';document.getElementById('pr-on').textContent=onT<1?(onT*1000).toFixed(2)+'µs':onT.toFixed(4)+'ms';document.getElementById('pr-res').textContent=(bestArr+1)+' steps';const v=document.getElementById('pwm-vis');if(v)v.innerHTML=`<div class="pwm-wave"><div class="pwm-hi" style="width:${dc}%"></div><div style="flex:1"></div></div>`;}
-}
+function calcPWM(){const clk=parseFloat(document.getElementById('p-clk')?.value||168)*1e6,freq=parseFloat(document.getElementById('p-freq')?.value||1000),dc=parseFloat(document.getElementById('p-dc')?.value||50);let bestPsc=0,bestArr=0,bestErr=Infinity;for(let arr=65535;arr>=99;arr-=Math.max(1,Math.floor(arr/50))){const psc=Math.round(clk/freq/(arr+1))-1;if(psc<0||psc>65535)continue;const err=Math.abs(clk/((psc+1)*(arr+1))-freq)/freq*100;if(err<bestErr){bestErr=err;bestPsc=psc;bestArr=arr}if(err<0.01)break;}const actualFreq=clk/((bestPsc+1)*(bestArr+1)),ccr=Math.round(dc/100*(bestArr+1)),onT=ccr*(bestPsc+1)/clk*1000;if(document.getElementById('pr-psc')){document.getElementById('pr-psc').textContent=bestPsc;document.getElementById('pr-arr').textContent=bestArr;document.getElementById('pr-ccr').textContent=ccr+' ('+dc+'%)';document.getElementById('pr-freq').textContent=actualFreq>=1e3?(actualFreq/1e3).toFixed(3)+'kHz':actualFreq.toFixed(2)+'Hz';document.getElementById('pr-on').textContent=onT<1?(onT*1000).toFixed(2)+'µs':onT.toFixed(4)+'ms';document.getElementById('pr-res').textContent=(bestArr+1)+' steps';const v=document.getElementById('pwm-vis');if(v)v.innerHTML=`<div class="pwm-wave"><div class="pwm-hi" style="width:${dc}%"></div><div style="flex:1"></div></div>`;}}
 
+// ═══ UART ═══
 function renderUART(){
   const clk=parseFloat(S.clock)||168;
   sb().innerHTML=`
-  <div class="sec-title">📶 UART Baud Calculator</div>
-  <div class="sec-sub">USART_BRR register and baud rate error verification</div>
+  <div class="sec-title">📶 UART Baud Rate Calculator</div>
+  <div class="sec-sub">USART_BRR register calculation with error analysis</div>
   <div class="card">
-    <div class="card-title">UART Config</div>
+    <div class="card-title">UART Configuration</div>
     <div class="calc-row">
       <div class="inp-grp"><label>PCLK (MHz)</label><input type="number" id="u-clk" value="${clk}"></div>
-      <div class="inp-grp"><label>Baud Rate</label><select id="u-baud" onchange="document.getElementById('u-baudn').value=this.value;calcUART()">${[9600,19200,38400,57600,115200,230400,460800,921600,1000000].map(b=>`<option value="${b}" ${b===115200?'selected':''}>${b.toLocaleString()}</option>`).join('')}</select></div>
+      <div class="inp-grp"><label>Baud Rate Preset</label><select id="u-baud" onchange="document.getElementById('u-baudn').value=this.value;calcUART()">${[9600,19200,38400,57600,115200,230400,460800,921600,1000000,2000000].map(b=>`<option value="${b}" ${b===115200?'selected':''}>${b.toLocaleString()}</option>`).join('')}</select></div>
     </div>
     <div class="calc-row">
       <div class="inp-grp"><label>Custom Baud</label><input type="number" id="u-baudn" value="115200" oninput="calcUART()"></div>
@@ -826,132 +856,168 @@ function renderUART(){
       <div class="result-row"><span class="rlabel">Status</span><span class="rvalue" id="ur-status">-</span></div>
     </div>
     <div id="baud-table" style="margin-top:8px"></div>
-    <div class="formula-box"><span class="eq">BRR (×16) = PCLK / Baud</span><br><span class="eq">Error% = |Actual−Target| / Target × 100</span></div>
+    <div class="formula-box"><span class="eq">BRR (×16) = PCLK / Baud</span><br><span class="eq">Error% = |Actual − Target| / Target × 100</span><br><span class="eq">Max tolerable error = ±2% per UART spec</span></div>
   </div>`;
   setTimeout(calcUART,80);
 }
-function calcUART(){
-  const pclk=parseFloat(document.getElementById('u-clk')?.value||168)*1e6,baud=parseFloat(document.getElementById('u-baudn')?.value||115200),os=parseInt(document.getElementById('u-os')?.value||16);
-  const brr=Math.round(pclk/(os*baud)),actualBaud=pclk/(os*brr),err=Math.abs(actualBaud-baud)/baud*100;
-  if(document.getElementById('ur-brr')){
-    document.getElementById('ur-brr').textContent='0x'+brr.toString(16).toUpperCase().padStart(4,'0')+' ('+brr+')';
-    document.getElementById('ur-actual').textContent=actualBaud.toFixed(2)+' bps';
-    document.getElementById('ur-err').textContent=err.toFixed(4)+'%';
-    document.getElementById('ur-err').className='rvalue '+(err<1?'ok':err<2?'warn':'');
-    document.getElementById('ur-bit').textContent=(1/actualBaud*1e6).toFixed(3)+'µs';
-    document.getElementById('ur-status').textContent=err<2?'✓ USABLE':'✗ ERROR TOO HIGH';
-    document.getElementById('ur-status').className='rvalue '+(err<2?'ok':'');
-    const bauds=[9600,19200,38400,57600,115200,230400];
-    let tbl='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;font-family:\'JetBrains Mono\',monospace;font-size:10px"><span style="color:var(--accent2)">BAUD</span><span style="color:var(--accent2)">BRR</span><span style="color:var(--accent2)">ERR%</span>';
-    bauds.forEach(b=>{const bv=Math.round(pclk/(os*b)),e=Math.abs(pclk/(os*bv)-b)/b*100,col=e<0.5?'var(--green)':e<2?'var(--gold)':'var(--red)';tbl+=`<span>${b.toLocaleString()}</span><span>0x${bv.toString(16).toUpperCase()}</span><span style="color:${col}">${e.toFixed(3)}</span>`;});
-    tbl+='</div>';document.getElementById('baud-table').innerHTML=tbl;
-  }
-}
+function calcUART(){const pclk=parseFloat(document.getElementById('u-clk')?.value||168)*1e6,baud=parseFloat(document.getElementById('u-baudn')?.value||115200),os=parseInt(document.getElementById('u-os')?.value||16);const brr=Math.round(pclk/(os*baud)),actualBaud=pclk/(os*brr),err=Math.abs(actualBaud-baud)/baud*100;if(document.getElementById('ur-brr')){document.getElementById('ur-brr').textContent='0x'+brr.toString(16).toUpperCase().padStart(4,'0')+' ('+brr+')';document.getElementById('ur-actual').textContent=actualBaud.toFixed(2)+' bps';document.getElementById('ur-err').textContent=err.toFixed(4)+'%';document.getElementById('ur-err').className='rvalue '+(err<1?'ok':err<2?'warn':'');document.getElementById('ur-bit').textContent=(1/actualBaud*1e6).toFixed(3)+'µs';document.getElementById('ur-status').textContent=err<2?'✓ USABLE (within ±2%)':'✗ ERROR TOO HIGH';document.getElementById('ur-status').className='rvalue '+(err<2?'ok':'');const bauds=[9600,19200,38400,57600,115200,230400];let tbl='<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:3px;font-family:\'JetBrains Mono\',monospace;font-size:10px"><span style="color:var(--accent2)">BAUD</span><span style="color:var(--accent2)">BRR</span><span style="color:var(--accent2)">ERR%</span>';bauds.forEach(b=>{const bv=Math.round(pclk/(os*b)),e=Math.abs(pclk/(os*bv)-b)/b*100,col=e<0.5?'var(--green)':e<2?'var(--gold)':'var(--red)';tbl+=`<span>${b.toLocaleString()}</span><span>0x${bv.toString(16).toUpperCase()}</span><span style="color:${col}">${e.toFixed(3)}</span>`;});tbl+='</div>';document.getElementById('baud-table').innerHTML=tbl;}}
 
+// ═══ RTOS ═══
 function renderRTOS(){
   sb().innerHTML=`
   <div class="sec-title">🛡 RTOS & Safety</div>
-  <div class="sec-sub">FreeRTOS tasks and safety mechanisms</div>
+  <div class="sec-sub">Configure RTOS tasks, sync primitives and safety features</div>
   <div class="card">
     <div class="card-title">RTOS Enable</div>
     <div class="toggle" onclick="S.rtos=!S.rtos;renderRTOS()" style="margin-bottom:14px"><div class="tgl-sw ${S.rtos?'on':''}"></div><span class="tgl-label">ENABLE RTOS IN PROJECT</span></div>
     ${S.rtos?`
     <div class="calc-row">
-      <div class="inp-grp"><label>RTOS Type</label><select onchange="S.rtosType=this.value">${['FreeRTOS','Zephyr RTOS','CMSIS-RTOS2','ThreadX','RT-Thread'].map(r=>`<option ${S.rtosType===r?'selected':''}>${r}</option>`).join('')}</select></div>
-      <div class="inp-grp"><label>Heap Size (Bytes)</label><input type="number" value="${S.heapSize}" oninput="S.heapSize=this.value"></div>
+      <div class="inp-grp"><label>RTOS Type</label><select onchange="S.rtosType=this.value">${['FreeRTOS','Zephyr RTOS','CMSIS-RTOS2','ThreadX (Azure)','RT-Thread','Mbed OS'].map(r=>`<option ${S.rtosType===r?'selected':''}>${r}</option>`).join('')}</select></div>
+      <div class="inp-grp"><label>Total Heap (Bytes)</label><input type="number" value="${S.heapSize}" oninput="S.heapSize=this.value"></div>
     </div>
     <div class="divider"></div>
     <div class="card-title">Task Builder</div>
     <div class="task-add-grid">
-      <div class="inp-grp"><label>Task Name</label><input id="t-name" placeholder="vMotorTask"></div>
-      <div class="inp-grp"><label>Priority</label><select id="t-prio"><option value="1">Low</option><option value="2" selected>Normal</option><option value="3">High</option><option value="4">Critical</option></select></div>
-      <div class="inp-grp"><label>Stack (Words)</label><input type="number" id="t-stack" value="256"></div>
+      <div class="inp-grp"><label>Task Name</label><input id="t-name" placeholder="vMotorControlTask"></div>
+      <div class="inp-grp"><label>Priority</label><select id="t-prio"><option value="1">1 — Low (Background)</option><option value="2" selected>2 — Normal</option><option value="3">3 — High</option><option value="4">4 — Critical / ISR</option></select></div>
+      <div class="inp-grp"><label>Stack Size (Words)</label><input type="number" id="t-stack" value="256"></div>
+      <div class="inp-grp"><label>Period (ms, optional)</label><input type="number" id="t-period" placeholder="e.g. 100"></div>
     </div>
     <button class="btn-add" onclick="addTask()" style="margin-bottom:10px">+ ADD TASK</button>
-    ${S.tasks.map((t,i)=>`<div class="task-item"><div class="task-info">${t.name} · <span style="color:var(--dim2)">Stack: ${t.stack}w</span></div><div class="task-prio ${t.prio>=3?'p-high':t.prio===2?'p-med':'p-low'}">P${t.prio}</div><button onclick="S.tasks.splice(${i},1);renderRTOS()" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:0 4px">✕</button></div>`).join('')||'<div style="color:var(--dim2);font-size:11px;padding:6px">No tasks added</div>'}
+    ${S.tasks.map((t,i)=>`<div class="task-item"><div class="task-info">${t.name}${t.period?` · <span style="color:var(--accent2)">every ${t.period}ms</span>`:''} · <span style="color:var(--dim2)">Stack: ${t.stack}w</span></div><div class="task-prio ${t.prio>=3?'p-high':t.prio===2?'p-med':'p-low'}">P${t.prio}</div><button onclick="S.tasks.splice(${i},1);renderRTOS()" style="background:none;border:none;color:var(--red);cursor:pointer;font-size:16px;padding:0 4px">✕</button></div>`).join('')||'<div style="color:var(--dim2);font-size:11px;padding:6px">No tasks yet — add tasks above</div>'}
     <div class="divider"></div>
     <div class="card-title">Sync Primitives</div>
-    <div class="chips">${['Queue','Binary Semaphore','Mutex','Event Group','Software Timer','Task Notification'].map(p=>`<span class="chip ${S.peripherals.includes('RTOS:'+p)?'sp':''}" onclick="toggleArr(S.peripherals,'RTOS:${p}');renderRTOS()">${p}</span>`).join('')}</div>
-    `:'<div class="info-box">RTOS disabled — project uses bare-metal / superloop.</div>'}
+    <div class="chips">${['Queue','Binary Semaphore','Counting Semaphore','Mutex','Recursive Mutex','Event Group','Software Timer','Task Notification','Stream Buffer','Message Buffer'].map(p=>`<span class="chip ${S.peripherals.includes('RTOS:'+p)?'sp':''}" onclick="toggleArr(S.peripherals,'RTOS:${p}');renderRTOS()">${p}</span>`).join('')}</div>
+    `:'<div class="info-box">RTOS disabled — project will use bare-metal superloop architecture.</div>'}
   </div>
   <div class="card">
-    <div class="card-title">Safety Features <span class="count-badge">${S.safetyFeatures.length}</span></div>
+    <div class="card-title">Safety & Reliability Features <span class="count-badge">${S.safetyFeatures.length}</span></div>
     <div class="chips">${SAFETY.map(s=>`<span class="chip ${S.safetyFeatures.includes(s)?'sc':''}" onclick="toggleArr(S.safetyFeatures,'${s}');renderRTOS()">${s}</span>`).join('')}</div>
-    <div class="divider"></div>
+  </div>
+  <div class="card">
     <div class="card-title">Debug Interface</div>
-    <div class="chips">${['SWD (2-wire)','JTAG (5-wire)','SWO Trace','UART Printf','Semihosting','RTT (SEGGER)'].map(d=>`<span class="chip ${S.peripherals.includes('DBG:'+d)?'sg':''}" onclick="toggleArr(S.peripherals,'DBG:${d}');renderRTOS()">${d}</span>`).join('')}</div>
+    <div class="chips">${['SWD (2-wire)','JTAG (5-wire)','SWO Trace','UART Printf Debug','Semihosting','RTT (SEGGER)','Logic Analyzer Trigger'].map(d=>`<span class="chip ${S.peripherals.includes('DBG:'+d)?'sg':''}" onclick="toggleArr(S.peripherals,'DBG:${d}');renderRTOS()">${d}</span>`).join('')}</div>
   </div>`;
   updateBBSummary();
 }
-function addTask(){const n=document.getElementById('t-name')?.value.trim()||'vTask',p=parseInt(document.getElementById('t-prio')?.value||2),st=parseInt(document.getElementById('t-stack')?.value||256);S.tasks.push({name:n,prio:p,stack:st});renderRTOS();}
+function addTask(){const n=document.getElementById('t-name')?.value.trim()||'vTask',p=parseInt(document.getElementById('t-prio')?.value||2),st=parseInt(document.getElementById('t-stack')?.value||256),per=document.getElementById('t-period')?.value.trim()||'';S.tasks.push({name:n,prio:p,stack:st,period:per});renderRTOS();}
 
+// ═══ REQUIREMENTS ═══
 function renderReq(){
   sb().innerHTML=`
-  <div class="sec-title">📝 Requirements</div>
-  <div class="sec-sub">Describe your project for a better AI prompt</div>
+  <div class="sec-title">📝 Project Requirements</div>
+  <div class="sec-sub">Describe your system — the more detail, the better the AI output</div>
   <div class="card">
     <div class="card-title">Project Description</div>
-    <div class="inp-grp"><label>Description</label><textarea class="t-area" rows="3" placeholder="What does your embedded system do?" oninput="S.projectDesc=this.value">${S.projectDesc}</textarea></div>
-    <div class="inp-grp"><label>Specific Requirements / Constraints</label><textarea class="t-area" rows="4" placeholder="e.g. Read ACS712 every 100ms, send JSON over UART at 115200, alert if current > 5A..." oninput="S.customReq=this.value">${S.customReq}</textarea></div>
+    <div class="inp-grp"><label>What does this system do?</label><textarea class="t-area" rows="3" placeholder="e.g. Industrial motor health monitoring system using STM32F407 that reads vibration, temperature and current to detect bearing faults..." oninput="S.projectDesc=this.value">${S.projectDesc}</textarea></div>
+    <div class="inp-grp"><label>Specific Requirements & Constraints</label><textarea class="t-area" rows="5" placeholder="e.g.&#10;- Read ACS712 current every 50ms via ADC DMA&#10;- Alert if current > 5A via GPIO output&#10;- Send JSON data over UART at 115200 baud&#10;- Log data to SD card every 1 second&#10;- STM32 HAL library, FreeRTOS, 168MHz clock" oninput="S.customReq=this.value">${S.customReq}</textarea></div>
   </div>
   <div class="card">
     <div class="card-title">Application Domain</div>
-    <div class="chips">${['Motor Control','IoT / Cloud','Industrial Automation','Automotive / CAN','Home Automation','Medical Device','Energy Metering','Robotics','SCADA / HMI','Data Logger','Battery Management','Edge AI / ML','Wearable Device','Drone / UAV','Agriculture IoT'].map(d=>`<span class="chip ${S.targetApp===d?'sc':''}" onclick="S.targetApp='${d}';renderReq()">${d}</span>`).join('')}</div>
+    <div class="chips">${['Motor Control','IoT / Cloud','Industrial Automation','Automotive / CAN Bus','Home Automation','Medical Device','Energy Metering','Robotics','SCADA / HMI','Data Logger','Battery Management','Edge AI / ML','Wearable Device','Drone / UAV','Agriculture IoT','Power Electronics','Condition Monitoring','Building Automation'].map(d=>`<span class="chip ${S.targetApp===d?'sc':''}" onclick="S.targetApp='${d}';renderReq()">${d}</span>`).join('')}</div>
   </div>
   <div class="card">
-    <div class="card-title">Code Options</div>
+    <div class="card-title">Code Generation Settings</div>
     <div style="display:flex;flex-direction:column;gap:10px">
-      ${[['includeComments','Inline comments on every block'],['includeHeaders','Auto-add required #includes'],['addExamples','Add usage example comment'],['addFormulas','Show math formulas as comments']].map(([k,l])=>`<div class="toggle" onclick="S['${k}']=!S['${k}'];renderReq()"><div class="tgl-sw ${S[k]?'on':''}"></div><span class="tgl-label">${l}</span></div>`).join('')}
+      ${[['includeComments','Detailed inline comments on every block'],['includeHeaders','Auto-add all required #include headers'],['addExamples','Add usage example in comment block at top'],['addFormulas','Show math formulas (ADC, Timer, PWM, UART) as inline comments'],['addMISRA','Follow MISRA-C embedded coding guidelines']].map(([k,l])=>`<div class="toggle" onclick="S['${k}']=!S['${k}'];renderReq()"><div class="tgl-sw ${S[k]?'on':''}"></div><span class="tgl-label">${l}</span></div>`).join('')}
     </div>
   </div>`;
   updateBBSummary();
 }
 
-// ═══════════════════════════════════════════
-// PROMPT BUILDER
-// ═══════════════════════════════════════════
+// ═══ PROMPT BUILDER ═══
 function buildPrompt(){
   const lines=[];
-  lines.push(`You are a senior Embedded Systems Firmware Engineer with 15+ years of industrial experience. Generate clean, production-quality, well-documented embedded firmware code based on the following project specifications.\n`);
-  lines.push(`## PROJECT OVERVIEW`);
-  if(S.projectName)lines.push(`- Project Name: ${S.projectName}`);
-  if(S.targetApp)lines.push(`- Application Domain: ${S.targetApp}`);
-  if(S.projectDesc)lines.push(`- Description: ${S.projectDesc}`);
-  lines.push(`\n## HARDWARE PLATFORM`);
-  if(S.mcu){lines.push(`- Microcontroller: ${S.mcu[1]} (${S.mcu[0]})`);lines.push(`- Architecture: ${S.mcu[3]} | Max Clock: ${S.mcu[4]} | Flash: ${S.mcu[5]} | RAM: ${S.mcu[6]}`);}
-  else lines.push(`- Microcontroller: [NOT SELECTED - please specify]`);
-  if(S.clock)lines.push(`- System Clock: ${S.clock} MHz`);
-  if(S.voltage)lines.push(`- Supply Voltage: ${S.voltage}`);
-  if(S.framework)lines.push(`- Development Framework: ${S.framework}`);
-  if(S.language)lines.push(`- Programming Language: ${S.language}`);
-  if(S.codeStyle)lines.push(`- Code Abstraction Level: ${S.codeStyle}`);
-  const periph=S.peripherals.filter(p=>!p.startsWith('RTOS:')&&!p.startsWith('DBG:'));
-  if(periph.length){lines.push(`\n## MCU PERIPHERALS TO CONFIGURE`);periph.forEach(p=>lines.push(`- ${p}`));}
-  if([...S.sensors,...S.customSensors].length){lines.push(`\n## SENSORS & EXTERNAL MODULES`);[...S.sensors,...S.customSensors].forEach(s=>lines.push(`- ${s}`));}
-  if(S.protocols.length){lines.push(`\n## COMMUNICATION PROTOCOLS`);S.protocols.forEach(p=>lines.push(`- ${p}`));}
-  if(S.rtos){
-    lines.push(`\n## RTOS CONFIGURATION`);
-    lines.push(`- RTOS: ${S.rtosType} | Total Heap: ${S.heapSize} bytes`);
-    if(S.tasks.length){lines.push(`- Tasks:`);S.tasks.forEach(t=>lines.push(`  · ${t.name} — Priority ${t.prio}, Stack ${t.stack} words`));}
-    const prim=S.peripherals.filter(p=>p.startsWith('RTOS:')).map(p=>p.replace('RTOS:',''));
-    if(prim.length)lines.push(`- Synchronization: ${prim.join(', ')}`);
+  lines.push(`You are a Senior Embedded Systems Firmware Engineer with 15+ years of industrial experience in real-time control systems, IoT, and safety-critical embedded applications. Generate clean, complete, production-quality, MISRA-C compliant embedded firmware code based on the exact project specifications below. Do not generate pseudocode or placeholder functions — write fully functional, compilable code.\n`);
+
+  lines.push(`━━━ PROJECT OVERVIEW ━━━`);
+  if(S.projectName)lines.push(`Project Name     : ${S.projectName}`);
+  if(S.targetApp)lines.push(`Application      : ${S.targetApp}`);
+  if(S.projectDesc)lines.push(`Description      : ${S.projectDesc}`);
+
+  lines.push(`\n━━━ HARDWARE PLATFORM ━━━`);
+  if(S.mcu){
+    lines.push(`Microcontroller  : ${S.mcu[1]} (${S.mcu[0]})`);
+    lines.push(`Architecture     : ${S.mcu[3]} | Clock: ${S.mcu[4]} | Flash: ${S.mcu[5]} | RAM: ${S.mcu[6]}`);
+    if(S.mcu[7])lines.push(`MCU Notes        : ${S.mcu[7]}`);
+  } else {
+    lines.push(`Microcontroller  : [NOT SELECTED — please specify your MCU]`);
   }
-  if(S.safetyFeatures.length){lines.push(`\n## SAFETY & RELIABILITY FEATURES`);S.safetyFeatures.forEach(s=>lines.push(`- ${s}`));}
+  if(S.clock)lines.push(`System Clock     : ${S.clock} MHz (configure PLL accordingly)`);
+  if(S.voltage)lines.push(`Supply Voltage   : ${S.voltage}`);
+  if(S.framework)lines.push(`Framework / HAL  : ${S.framework}`);
+  if(S.language)lines.push(`Language         : ${S.language}`);
+  if(S.codeStyle)lines.push(`Code Abstraction : ${S.codeStyle}`);
+
+  const periph=S.peripherals.filter(p=>!p.startsWith('RTOS:')&&!p.startsWith('DBG:'));
+  if(periph.length){
+    lines.push(`\n━━━ MCU PERIPHERALS TO CONFIGURE ━━━`);
+    periph.forEach(p=>lines.push(`• ${p}`));
+  }
+
+  const allSensors=[...S.sensors,...S.customSensors];
+  if(allSensors.length){
+    lines.push(`\n━━━ SENSORS & EXTERNAL MODULES ━━━`);
+    allSensors.forEach(s=>{
+      const meta=SENSORS.find(x=>x[0]===s);
+      lines.push(`• ${s}${meta?` — Interface: ${meta[2]}, Type: ${meta[1]}`:''}`);
+    });
+  }
+
+  const allProtos=[...S.protocols,...S.customProtocols];
+  if(allProtos.length){
+    lines.push(`\n━━━ COMMUNICATION PROTOCOLS ━━━`);
+    allProtos.forEach(p=>lines.push(`• ${p}`));
+  }
+
+  if(S.rtos){
+    lines.push(`\n━━━ RTOS CONFIGURATION ━━━`);
+    lines.push(`RTOS             : ${S.rtosType}`);
+    lines.push(`Total Heap       : ${S.heapSize} bytes`);
+    if(S.tasks.length){
+      lines.push(`Tasks:`);
+      S.tasks.forEach(t=>lines.push(`  ↳ ${t.name} | Priority: ${t.prio}/4 | Stack: ${t.stack} words${t.period?` | Period: ${t.period}ms`:''}`));
+    }
+    const prim=S.peripherals.filter(p=>p.startsWith('RTOS:')).map(p=>p.replace('RTOS:',''));
+    if(prim.length)lines.push(`Sync Primitives  : ${prim.join(', ')}`);
+  }
+
+  if(S.safetyFeatures.length){
+    lines.push(`\n━━━ SAFETY & RELIABILITY REQUIREMENTS ━━━`);
+    S.safetyFeatures.forEach(s=>lines.push(`• ${s}`));
+  }
+
   const dbg=S.peripherals.filter(p=>p.startsWith('DBG:')).map(p=>p.replace('DBG:',''));
-  if(dbg.length){lines.push(`\n## DEBUG INTERFACE`);dbg.forEach(d=>lines.push(`- ${d}`));}
-  if(S.codeTypes.length){lines.push(`\n## CODE TO GENERATE`);S.codeTypes.forEach(t=>lines.push(`- ${t}`));}
-  if(S.customReq){lines.push(`\n## SPECIFIC REQUIREMENTS & CONSTRAINTS\n${S.customReq}`);}
-  lines.push(`\n## CODE QUALITY REQUIREMENTS`);
-  if(S.includeComments)lines.push(`- Add detailed inline comments explaining every register write, peripheral init, and logic step`);
-  if(S.includeHeaders)lines.push(`- Include all required #include headers, #define constants, and global variable declarations`);
-  if(S.addExamples)lines.push(`- Add a usage example in a comment block at the top of each file`);
-  if(S.addFormulas)lines.push(`- Include relevant formulas (ADC voltage conversion, Timer PSC/ARR, PWM CCR, Baud Rate BRR) as inline comments`);
-  lines.push(`- Write complete, compilable code — not pseudocode or placeholder`);
-  lines.push(`- Follow MISRA-C coding guidelines where applicable`);
-  lines.push(`- Add HAL return code error checking for all peripheral init calls`);
-  lines.push(`- Structure code with clear separation: includes → defines → typedefs → prototypes → main/init → tasks/ISRs`);
+  if(dbg.length){
+    lines.push(`\n━━━ DEBUG INTERFACE ━━━`);
+    dbg.forEach(d=>lines.push(`• ${d}`));
+  }
+
+  if(S.codeTypes.length){
+    lines.push(`\n━━━ CODE TO GENERATE ━━━`);
+    S.codeTypes.forEach(t=>lines.push(`• ${t}`));
+  }
+
+  if(S.customReq){
+    lines.push(`\n━━━ SPECIFIC REQUIREMENTS & CONSTRAINTS ━━━`);
+    lines.push(S.customReq);
+  }
+
+  lines.push(`\n━━━ CODE QUALITY STANDARDS ━━━`);
+  if(S.includeComments)lines.push(`• Add detailed inline comments on every register write, peripheral init, ISR, and logic block`);
+  if(S.includeHeaders)lines.push(`• Include ALL required #include headers, #define macros, typedef structs and global variable declarations`);
+  if(S.addExamples)lines.push(`• Add a /* Usage Example */ comment block at the top of each .c file`);
+  if(S.addFormulas)lines.push(`• Include relevant register formulas (ADC voltage, Timer PSC/ARR, PWM CCR, UART BRR) as inline comments`);
+  if(S.addMISRA)lines.push(`• Apply MISRA-C 2012 guidelines: no dynamic memory, bounded loops, explicit type casting, no implicit conversions`);
+  lines.push(`• Write complete, fully compilable code — no placeholder functions, no TODO stubs`);
+  lines.push(`• Add HAL_StatusTypeDef error checking for every HAL init and transmission call`);
+  lines.push(`• Structure code in layers: #includes → #defines → typedefs → function prototypes → init → main/tasks → ISRs`);
+  lines.push(`• Variable naming: descriptive camelCase for locals, UPPER_CASE for #defines, g_ prefix for globals`);
+  lines.push(`• Add configurable #define constants for all thresholds, timing values and hardware pin assignments`);
+
   return lines.join('\n');
 }
+
 function updateBBSummary(){
   const parts=[];
   if(S.mcu)parts.push(`MCU:${S.mcu[0]}`);
@@ -959,70 +1025,19 @@ function updateBBSummary(){
   const pc=S.peripherals.filter(p=>!p.startsWith('RTOS:')&&!p.startsWith('DBG:')).length;
   if(pc)parts.push(`${pc} periph`);
   if(S.sensors.length+S.customSensors.length)parts.push(`${S.sensors.length+S.customSensors.length} sensors`);
-  if(S.protocols.length)parts.push(`${S.protocols.length} protos`);
-  if(S.rtos)parts.push(`RTOS`);
-  document.getElementById('bb-sum').innerHTML=parts.length?parts.map(p=>`<span>${p}</span>`).join(' · '):'Select MCU to begin...';
+  if(S.protocols.length+S.customProtocols.length)parts.push(`${S.protocols.length+S.customProtocols.length} protos`);
+  if(S.rtos)parts.push(`RTOS:${S.rtosType.split(' ')[0]}`);
+  document.getElementById('bb-sum').innerHTML=parts.length?parts.map(p=>`<span>${p}</span>`).join(' · '):'Select MCU to begin building your prompt...';
 }
 
-// ═══════════════════════════════════════════
-// PROMPT MODAL
-// ═══════════════════════════════════════════
-function openPromptModal(){
-  document.getElementById('prompt-text-box').textContent=buildPrompt();
-  document.getElementById('prompt-modal').style.display='flex';
-  document.getElementById('prompt-modal').style.flexDirection='column';
-}
-function closePromptModal(){document.getElementById('prompt-modal').style.display='none'}
-function copyPromptFromModal(){
-  navigator.clipboard.writeText(buildPrompt()).then(()=>{
-    const b=document.querySelector('.btn-pm');const o=b.textContent;b.textContent='✓ COPIED!';b.style.background='var(--green)';
-    setTimeout(()=>{b.textContent=o;b.style.background='var(--accent)'},2000);
-    showToast();
-  }).catch(()=>showToast('✓ SELECT TEXT & COPY'));
-}
-function copyPromptDirect(){
-  navigator.clipboard.writeText(buildPrompt()).then(()=>showToast('✓ PROMPT COPIED!')).catch(()=>{openPromptModal();});
-}
-
-// ═══════════════════════════════════════════
-// CUSTOMIZE
-// ═══════════════════════════════════════════
-function openCustomize(){
-  document.getElementById('c-title').value=CUSTOM.title;
-  document.getElementById('c-ver').value=CUSTOM.ver;
-  document.getElementById('c-devname').value=CUSTOM.devname;
-  document.getElementById('c-footer').value=CUSTOM.footer;
-  document.getElementById('c-color').value=CUSTOM.accentColor;
-  document.getElementById('c-bg').value=CUSTOM.bg;
-  document.getElementById('c-surface').value=CUSTOM.surface;
-  document.getElementById('c-panel').value=CUSTOM.panel;
-  document.getElementById('c-card').value=CUSTOM.card;
-  document.getElementById('c-font').value=CUSTOM.font;
-  document.querySelectorAll('.color-chip').forEach(c=>c.classList.toggle('act',c.dataset.color===CUSTOM.accentColor));
-  document.getElementById('cust-modal').style.display='flex';
-}
-function closeCustomize(){document.getElementById('cust-modal').style.display='none'}
-function pickColor(el){document.querySelectorAll('.color-chip').forEach(c=>c.classList.remove('act'));el.classList.add('act');document.getElementById('c-color').value=el.dataset.color;previewColor(el.dataset.color);}
-function previewColor(hex){if(/^#[0-9A-Fa-f]{6}$/.test(hex))document.documentElement.style.setProperty('--accent',hex);}
-function setTheme(t){
-  const th={default:{bg:'#070a0d',s:'#0c1117',p:'#101820',c:'#141e28'},'dark-blue':{bg:'#050810',s:'#090e1a',p:'#0d1525',c:'#111d30'},'dark-green':{bg:'#050a08',s:'#091410',p:'#0d1e18',c:'#112820'},'dark-purple':{bg:'#090710',s:'#110f1e',p:'#151228',c:'#1a1630'},'dark-red':{bg:'#0a0707',s:'#170d0d',p:'#1e1010',c:'#281414'},'near-black':{bg:'#030303',s:'#080808',p:'#0e0e0e',c:'#131313'}};
-  const v=th[t];if(!v)return;
-  document.getElementById('c-bg').value=v.bg;document.getElementById('c-surface').value=v.s;document.getElementById('c-panel').value=v.p;document.getElementById('c-card').value=v.c;
-}
-function applyCustomize(){
-  Object.assign(CUSTOM,{accentColor:document.getElementById('c-color').value,bg:document.getElementById('c-bg').value,surface:document.getElementById('c-surface').value,panel:document.getElementById('c-panel').value,card:document.getElementById('c-card').value,title:document.getElementById('c-title').value||'EMBEDGEN PRO',ver:document.getElementById('c-ver').value||'PRO',devname:document.getElementById('c-devname').value,footer:document.getElementById('c-footer').value,font:document.getElementById('c-font').value});
-  const r=document.documentElement;
-  r.style.setProperty('--accent',CUSTOM.accentColor);r.style.setProperty('--bg',CUSTOM.bg);r.style.setProperty('--surface',CUSTOM.surface);r.style.setProperty('--panel',CUSTOM.panel);r.style.setProperty('--card',CUSTOM.card);
-  document.body.style.fontFamily=CUSTOM.font;
-  document.querySelector('.hlogo').innerHTML=CUSTOM.title+'<span class="hver">'+CUSTOM.ver+'</span>';
-  document.getElementById('footer-text').textContent=CUSTOM.footer;
-  closeCustomize();
-  showToast('✓ SETTINGS APPLIED!');
-}
-function resetCustomize(){
-  Object.assign(CUSTOM,{accentColor:'#00ffe1',bg:'#070a0d',surface:'#0c1117',panel:'#101820',card:'#141e28',title:'EMBEDGEN PRO',ver:'PRO',devname:'Ishwar Bagad',footer:'⚡ EMBEDGEN PRO · Developed by Ishwar Bagad · Embedded AI Prompt Builder · v3.0',font:"'Rajdhani',sans-serif"});
-  applyCustomize();openCustomize();
-}
+// ═══ MODALS ═══
+function openPromptModal(){document.getElementById('prompt-text-box').textContent=buildPrompt();document.getElementById('prompt-modal').style.display='flex';document.getElementById('prompt-modal').style.flexDirection='column';}
+function closePromptModal(){document.getElementById('prompt-modal').style.display='none';}
+function copyPromptFromModal(){navigator.clipboard.writeText(buildPrompt()).then(()=>{const b=document.querySelector('.btn-pm');const o=b.textContent;b.textContent='✓ COPIED!';b.style.background='var(--green)';setTimeout(()=>{b.textContent=o;b.style.background='var(--accent)'},2000);showToast('✓ PROMPT COPIED!');}).catch(()=>showToast('✓ SELECT TEXT & COPY'));}
+function copyPromptDirect(){navigator.clipboard.writeText(buildPrompt()).then(()=>showToast('✓ PROMPT COPIED!')).catch(()=>{openPromptModal();});}
+function openAI(url,name){navigator.clipboard.writeText(buildPrompt()).then(()=>{showToast(`✓ COPIED! Opening ${name}...`);setTimeout(()=>window.open(url,'_blank'),600);}).catch(()=>{window.open(url,'_blank');showToast('Paste your prompt there!');});}
+function openHowTo(){document.getElementById('howto-modal').style.display='flex';document.getElementById('howto-modal').style.flexDirection='column';document.getElementById('howto-modal').scrollTop=0;}
+function closeHowTo(){document.getElementById('howto-modal').style.display='none';}
 
 // INIT
 buildNav();
