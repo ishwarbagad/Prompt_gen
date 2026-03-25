@@ -541,107 +541,172 @@ function openGenModal(mode){
 }
 function closeGenModal(){document.getElementById('gen-modal').style.display='none';}
 
+const AI_PLATFORMS=[
+  {id:'onpage', icon:'⚡', name:'Generate Here',  badge:'FASTEST ✅', desc:'Code appears directly on this page', url:''},
+  {id:'chatgpt', icon:'🤖', name:'ChatGPT',       badge:'POPULAR',    desc:'GPT-4o — Best for full projects',  url:'https://chat.openai.com'},
+  {id:'gemini',  icon:'✨', name:'Gemini',         badge:'GOOGLE',     desc:'Google — Good for IoT code',       url:'https://gemini.google.com'},
+  {id:'copilot', icon:'🐙', name:'Copilot',        badge:'IDE',        desc:'Best inside VS Code IDE',          url:'https://github.com/copilot'},
+  {id:'blackbox',icon:'⬛', name:'Blackbox AI',    badge:'CODE',       desc:'Code-focused, fast output',        url:'https://www.blackbox.ai'},
+  {id:'claude',  icon:'🧠', name:'Claude.ai',      badge:'CLAUDE',     desc:'Explained, safe firmware code',    url:'https://claude.ai'},
+];
+
 function renderGenModal(){
   const body=document.getElementById('gm-body');
   const prompt=buildPrompt();
+  const btnLabel=selectedAIPlatform==='onpage'
+    ?'⚡ GENERATE CODE HERE NOW'
+    :'⧉ COPY PROMPT & OPEN '+AI_PLATFORMS.find(p=>p.id===selectedAIPlatform)?.name.toUpperCase();
+
+  // Build HTML with NO inline onclick handlers
+  const gridHTML=AI_PLATFORMS.map(p=>`
+    <div class="ai-btn ${selectedAIPlatform===p.id?'selected':''}" data-pid="${p.id}">
+      <span class="ai-icon">${p.icon}</span>
+      <span class="ai-name">${p.name}</span>
+      <span class="ai-desc">${p.badge}</span>
+      <span class="ai-desc">${p.desc}</span>
+      ${selectedAIPlatform===p.id?'<span class="ai-sel-mark">✅</span>':''}
+    </div>`).join('');
+
   body.innerHTML=`
-  <!-- AI PLATFORM SELECTOR -->
-  <div>
-    <div class="ai-section-title">🤖 STEP 1 — CHOOSE HOW TO GENERATE CODE</div>
-    <div class="ai-grid">
-      ${[
-        {id:'onpage',icon:'⚡',name:'Generate Here',desc:'Code appears directly on this page',badge:'FASTEST ✅'},
-        {id:'chatgpt',icon:'🤖',name:'ChatGPT',url:'https://chat.openai.com',desc:'GPT-4o — Best for full projects',badge:'POPULAR'},
-        {id:'gemini',icon:'✨',name:'Gemini',url:'https://gemini.google.com',desc:'Google — Good for IoT code',badge:'GOOGLE'},
-        {id:'copilot',icon:'🐙',name:'Copilot',url:'https://github.com/copilot',desc:'Best inside VS Code IDE',badge:'IDE'},
-        {id:'blackbox',icon:'⬛',name:'Blackbox AI',url:'https://www.blackbox.ai',desc:'Code-focused, fast output',badge:'CODE'},
-        {id:'claude',icon:'🧠',name:'Claude.ai',url:'https://claude.ai',desc:'Explained, safe firmware code',badge:'CLAUDE'},
-      ].map(p=>`<div class="ai-btn ${selectedAIPlatform===p.id?'selected':''}" data-platform="${p.id}" onclick="selectPlatform('${p.id}','${p.url||''}')">
-        <span class="ai-icon">${p.icon}</span>
-        <span class="ai-name">${p.name}</span>
-        <span class="ai-desc">${p.badge}</span>
-        <span class="ai-desc">${p.desc}</span>
-        ${selectedAIPlatform===p.id?'<span class="ai-sel-mark">✅</span>':''}
-      </div>`).join('')}
+    <div>
+      <div class="ai-section-title">🤖 STEP 1 — CHOOSE HOW TO GENERATE CODE</div>
+      <div class="ai-grid" id="ai-platform-grid">${gridHTML}</div>
     </div>
-  </div>
-
-  <!-- GENERATE BUTTON -->
-  <button class="btn-gen-code" id="btn-gen-main" onclick="executeGenerate('${buildPrompt().replace(/'/g,"\\'")}')">
-    ${selectedAIPlatform==='onpage'?'⚡ GENERATE CODE HERE NOW':'⧉ COPY PROMPT & OPEN '+selectedAIPlatform.toUpperCase()}
-  </button>
-
-  <!-- PROMPT BOX -->
-  <div class="prompt-section">
-    <div class="prompt-header">
-      <span class="prompt-header-title">📋 YOUR GENERATED PROMPT</span>
-      <button class="btn-copy" onclick="copyText(buildPrompt,'PROMPT COPIED!')">⧉ COPY PROMPT</button>
+    <button class="btn-gen-code" id="btn-gen-main">${btnLabel}</button>
+    <div class="prompt-section">
+      <div class="prompt-header">
+        <span class="prompt-header-title">📋 YOUR GENERATED PROMPT</span>
+        <button class="btn-copy" id="btn-copy-prompt">⧉ COPY PROMPT</button>
+      </div>
+      <div class="prompt-box">${escHtml(prompt)}</div>
     </div>
-    <div class="prompt-box">${escHtml(prompt)}</div>
-  </div>
+    <div id="code-output-area"></div>`;
 
-  <!-- CODE OUTPUT AREA -->
-  <div id="code-output-area"></div>
-  `;
+  // Attach event listeners AFTER setting innerHTML
+  document.getElementById('ai-platform-grid').querySelectorAll('.ai-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      selectedAIPlatform=btn.dataset.pid;
+      renderGenModal();
+    });
+  });
+
+  document.getElementById('btn-gen-main').addEventListener('click', executeGenerate);
+  document.getElementById('btn-copy-prompt').addEventListener('click',()=>copyText(buildPrompt,'PROMPT COPIED!'));
 }
 
 function escHtml(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-function selectPlatform(id,url){
-  selectedAIPlatform=id;
-  renderGenModal();
-  // scroll to top of modal body
-  document.getElementById('gm-body').scrollTop=0;
-}
+// selectPlatform now handled via event listeners in renderGenModal
 
-async function executeGenerate(promptText){
+async function executeGenerate(){
+  const prompt=buildPrompt();
   if(selectedAIPlatform==='onpage'){
-    await generateOnPage(buildPrompt());
+    await generateOnPage(prompt);
   } else {
-    const urls={chatgpt:'https://chat.openai.com',gemini:'https://gemini.google.com',copilot:'https://github.com/copilot',blackbox:'https://www.blackbox.ai',claude:'https://claude.ai'};
-    const url=urls[selectedAIPlatform];
-    copyText(buildPrompt,'PROMPT COPIED! Opening '+selectedAIPlatform+'...');
-    setTimeout(()=>{if(url)window.open(url,'_blank');},700);
+    const plat=AI_PLATFORMS.find(p=>p.id===selectedAIPlatform);
+    // Copy prompt first
+    copyText(()=>prompt,'✓ PROMPT COPIED!');
+    // Show paste helper in code-output-area
+    const area=document.getElementById('code-output-area');
+    if(area){
+      area.innerHTML=`<div class="loading-box" style="border:1px solid var(--accent2)">
+        <div style="font-size:28px;margin-bottom:8px">${plat?.icon||'🤖'}</div>
+        <div class="loading-text" style="color:var(--accent2)">PROMPT COPIED! ✓</div>
+        <div class="loading-sub" style="line-height:2;margin-top:10px">
+          <b style="color:var(--accent)">Step 1:</b> ${plat?.name} is opening in a new tab...<br>
+          <b style="color:var(--accent)">Step 2:</b> Click the chat box on ${plat?.name}<br>
+          <b style="color:var(--accent)">Step 3:</b> Press <b style="color:var(--gold)">Ctrl+V</b> (or Cmd+V on Mac) to paste<br>
+          <b style="color:var(--accent)">Step 4:</b> Press <b style="color:var(--gold)">Enter</b> to generate your code
+        </div>
+        <button onclick="copyText(buildPrompt,'✓ PROMPT COPIED AGAIN!')" style="margin-top:14px;padding:8px 18px;background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:'Share Tech Mono',monospace;font-size:9px;cursor:pointer;border-radius:3px;letter-spacing:1px">⧉ COPY PROMPT AGAIN</button>
+      </div>`;
+      // re-attach copy again button via event listener
+      const copyAgainBtn=area.querySelector('button');
+      if(copyAgainBtn){
+        copyAgainBtn.onclick=null;
+        copyAgainBtn.addEventListener('click',()=>copyText(buildPrompt,'✓ PROMPT COPIED AGAIN!'));
+      }
+    }
+    // Open platform after short delay
+    if(plat?.url) setTimeout(()=>window.open(plat.url,'_blank'),800);
   }
 }
 
 async function generateOnPage(prompt){
   const area=document.getElementById('code-output-area');
   if(!area)return;
-  area.innerHTML=`<div class="loading-box"><div class="loading-spinner"></div><div class="loading-text">GENERATING FIRMWARE CODE...</div><div class="loading-sub">Claude AI is writing your embedded code. Please wait...</div></div>`;
-  document.getElementById('btn-gen-main').disabled=true;
+  const btn=document.getElementById('btn-gen-main');
+  if(btn)btn.disabled=true;
+
+  // Build a short, focused prompt — only key config, no fluff
+  const mcu   = S.mcu ? S.mcu[0]+' ('+S.mcu[3]+', '+S.mcu[4]+')' : 'Generic MCU';
+  const fw    = S.framework || 'HAL';
+  const sens  = [...S.sensors,...S.customSensors].join(', ')||'None';
+  const proto = [...S.protocols,...S.customProtocols].join(', ')||'None';
+  const periph= S.peripherals.filter(p=>!p.startsWith('RTOS:')&&!p.startsWith('DBG:')).join(', ')||'None';
+  const rtos  = S.rtos ? S.rtosType+', Tasks: '+S.tasks.map(t=>t.name).join(', ') : 'No RTOS';
+  const req   = S.customReq || 'Basic firmware';
+
+  const shortPrompt =
+`Write embedded C firmware code for:
+MCU: ${mcu}
+Framework: ${fw}
+Sensors: ${sens}
+Protocols: ${proto}
+Peripherals: ${periph}
+RTOS: ${rtos}
+Requirement: ${req}
+
+Output only compilable C code with brief inline comments. Include necessary #includes and #defines.`;
+
+  area.innerHTML=`<div class="loading-box">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">⚡ GENERATING CODE...</div>
+    <div class="loading-sub">Claude Haiku is writing your firmware...</div>
+  </div>`;
+
   try{
     const response=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body:JSON.stringify({
-        model:'claude-sonnet-4-20250514',
-        max_tokens:4000,
-        system:'You are a Senior Embedded Systems Firmware Engineer. Generate complete, production-quality, compilable embedded C firmware code. Always start with complete #includes, #defines, and structs. Write actual working code, not pseudocode.',
-        messages:[{role:'user',content:prompt}]
+        model:'claude-haiku-4-5-20251001',
+        max_tokens:1000,
+        messages:[{role:'user',content:shortPrompt}]
       })
     });
     const data=await response.json();
-    if(data.error){throw new Error(data.error.message||'API Error');}
-    const code=data.content?.find(c=>c.type==='text')?.text||'No code generated.';
+    if(data.error)throw new Error(data.error.message||'API Error');
+    const code=data.content?.find(c=>c.type==='text')?.text||'';
+    window._lastGeneratedCode=code;
+
     area.innerHTML=`
     <div class="code-section">
       <div class="code-header">
-        <span class="code-header-title">✅ GENERATED FIRMWARE CODE — READY TO USE</span>
+        <span class="code-header-title">✅ FIRMWARE CODE — READY</span>
         <div class="code-actions">
-          <button class="btn-copy-code" id="copy-code-btn" onclick="copyGeneratedCode()">⧉ COPY CODE</button>
+          <button class="btn-copy-code" id="copy-code-btn">⧉ COPY CODE</button>
         </div>
       </div>
       <div class="code-box" id="generated-code-box">${escHtml(code)}</div>
     </div>
-    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);padding:8px;text-align:center;letter-spacing:1px">
-      Generated by Claude AI · Always verify register values against your MCU datasheet
+    <div style="font-family:'Share Tech Mono',monospace;font-size:9px;color:var(--dim2);padding:6px;text-align:center">
+      ⚡ Claude Haiku · Verify values against your MCU datasheet
     </div>`;
-    window._lastGeneratedCode=code;
+
+    document.getElementById('copy-code-btn')?.addEventListener('click',()=>{
+      copyText(()=>window._lastGeneratedCode||'','CODE COPIED!');
+      const b=document.getElementById('copy-code-btn');
+      if(b){const o=b.textContent;b.textContent='✓ COPIED!';setTimeout(()=>b.textContent=o,2000);}
+    });
+
   }catch(e){
-    area.innerHTML=`<div class="loading-box"><div style="font-size:24px;margin-bottom:10px">⚠️</div><div class="loading-text" style="color:var(--accent2)">GENERATION FAILED</div><div class="loading-sub">${escHtml(e.message||'Unknown error')}<br><br>Use <b>COPY PROMPT</b> button above and paste in ChatGPT or Claude.ai manually.</div></div>`;
+    area.innerHTML=`<div class="loading-box">
+      <div style="font-size:24px;margin-bottom:8px">⚠️</div>
+      <div class="loading-text" style="color:var(--accent2)">FAILED — ${escHtml(e.message||'Error')}</div>
+      <div class="loading-sub">Use <b>COPY PROMPT</b> above → paste in Claude.ai manually.</div>
+    </div>`;
   }
-  const btn=document.getElementById('btn-gen-main');
   if(btn)btn.disabled=false;
 }
 
@@ -720,11 +785,30 @@ function buildMCUGrid(){
   const gc=document.getElementById('mcu-grid-count');
   const gb=document.getElementById('mcu-grid-body');
   if(gc)gc.textContent=filtered.length+' of '+allMCUs.length+' MCUs shown';
-  if(gb)gb.innerHTML=filtered.map(m=>`<div class="mcu-card ${S.mcu&&S.mcu[0]===m[0]?'sel':''}" onclick="S.mcu=[${m.map(x=>`'${x.replace(/'/g,"\\'")}' `).join(',')}];if(!S.clock)S.clock=S.mcu[4].replace('MHz','');buildMCUGrid();document.querySelectorAll('.mcu-sel-box').forEach(e=>e.remove());const box=document.createElement('div');box.className='mcu-sel-box';box.innerHTML='<div class=mcu-sel-name>✓ SELECTED: ${m[0]}</div><div class=mcu-sel-meta>Core: <span>${m[3]}</span> · Clock: <span>${m[4]}</span> · Flash: <span>${m[5]}</span> · RAM: <span>${m[6]}</span></div>';document.querySelector('.sec-title').before(box);updateBBSummary()">
-    <div class="mcu-name">${m[0]}</div>
-    <div class="mcu-meta">Core: <span>${m[3]}</span><br>${m[4]} · ${m[5]} · ${m[6]}${m[7]?`<br><span style="color:var(--gold);font-size:9px">${m[7]}</span>`:''}</div>
-    <span class="mcu-badge ${FM_COLORS[m[2]]||'badge-arm'}">${m[2]}</span>
-  </div>`).join('');
+  if(gb){
+    gb.innerHTML=filtered.map((m,i)=>`
+      <div class="mcu-card ${S.mcu&&S.mcu[0]===m[0]?'sel':''}" data-mcu-idx="${i}">
+        <div class="mcu-name">${m[0]}</div>
+        <div class="mcu-meta">Core: <span>${m[3]}</span><br>${m[4]} · ${m[5]} · ${m[6]}${m[7]?`<br><span style="color:var(--gold);font-size:9px">${m[7]}</span>`:''}</div>
+        <span class="mcu-badge ${FM_COLORS[m[2]]||'badge-arm'}">${m[2]}</span>
+      </div>`).join('');
+    // Attach click via event delegation — NO inline onclick
+    gb.querySelectorAll('.mcu-card').forEach((card,i)=>{
+      card.addEventListener('click',()=>{
+        S.mcu=[...filtered[i]];
+        if(!S.clock)S.clock=S.mcu[4].replace('MHz','');
+        // Update selected box
+        document.querySelectorAll('.mcu-sel-box').forEach(e=>e.remove());
+        const box=document.createElement('div');
+        box.className='mcu-sel-box';
+        box.innerHTML=`<div class="mcu-sel-name">✓ SELECTED: ${S.mcu[0]}</div><div class="mcu-sel-meta">Core: <span>${S.mcu[3]}</span> · Clock: <span>${S.mcu[4]}</span> · Flash: <span>${S.mcu[5]}</span> · RAM: <span>${S.mcu[6]}</span></div>`;
+        const secTitle=document.querySelector('.sec-title');
+        if(secTitle)secTitle.before(box);
+        updateBBSummary();
+        buildMCUGrid();
+      });
+    });
+  }
 }
 
 function addCustomMCU(){
